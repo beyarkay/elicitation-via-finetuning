@@ -168,17 +168,17 @@
     overflow: hidden;
   }
 
-  /* ── Header bar (full width) ── */
+  /* ── Header bar (full width, 3-column) ── */
   .poster-header {
     grid-column: 1 / -1;
     background: var(--card);
     border-bottom: 6px solid var(--accent);
     padding: 50px 80px;
-    display: flex;
+    display: grid;
+    grid-template-columns: 55% 1fr auto;
     align-items: center;
-    gap: 60px;
+    gap: 48px;
   }
-  .header-text { flex: 1; }
   .header-text h1 {
     font: 700 88px/1.1 var(--serif);
     color: var(--heading);
@@ -189,13 +189,17 @@
     font: 400 38px/1.45 var(--serif);
     color: var(--text-secondary);
     font-style: italic;
-    margin-bottom: 28px;
-    max-width: 2400px;
+  }
+  .author-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
   }
   .author-row {
     display: flex;
-    align-items: center;
-    gap: 44px;
+    justify-content: center;
+    gap: 48px;
   }
   .author-sep {
     font: 400 28px var(--sans);
@@ -207,7 +211,7 @@
     gap: 16px;
   }
   .author-avatar {
-    width: 72px; height: 72px;
+    width: 96px; height: 96px;
     border-radius: 50%;
     background: #f0ede6;
     border: 3px solid var(--border);
@@ -223,6 +227,7 @@
   .author-name {
     font: 600 28px var(--sans);
     color: var(--heading);
+    white-space: nowrap;
   }
   .author-affil {
     font: 400 22px var(--sans);
@@ -430,43 +435,46 @@
 <div class="poster-wrap">
 <div class="poster">
 
-  <!-- ── Header ── -->
+  <!-- ── Header (3-column: title+byline | authors | logo) ── -->
   <div class="poster-header">
     <div class="header-text">
       <h1 data-e="title" data-tip="The paper title">Limited-parameter finetuning can reveal misaligned LLMs</h1>
       <div class="byline" data-e="byline" data-tip="1-2 sentence plain-English summary of the main finding">We discover the misaligned propensities of LLMs, even when they're behaviourally equivalent to aligned control LLMs. We also discover the <em>type</em> of misalignment (sycophancy, reward hacking, etc.) when given only the untrusted LLM.</div>
+    </div>
+    <div class="author-grid">
       <div class="author-row">
         <div class="author">
-          <div class="author-avatar">JJ</div>
+          <div class="author-avatar"><img src="assets/jo.jpg" alt="Jo Jiao"></div>
           <div class="author-info">
             <span class="author-name">Jo Jiao*†</span>
             <span class="author-affil">MATS 9.0</span>
           </div>
         </div>
         <div class="author">
-          <div class="author-avatar">BK</div>
+          <div class="author-avatar"><img src="assets/boyd.jpg" alt="Boyd Kane"></div>
           <div class="author-info">
             <span class="author-name">Boyd Kane*†</span>
             <span class="author-affil">MATS 9.0</span>
           </div>
         </div>
-        <span class="author-sep">|</span>
+      </div>
+      <div class="author-row">
         <div class="author">
-          <div class="author-avatar">AT</div>
+          <div class="author-avatar"><img src="assets/gigachad1.jpg" alt="Alex Turner"></div>
           <div class="author-info">
             <span class="author-name">Alex Turner</span>
             <span class="author-affil">Google DeepMind</span>
           </div>
         </div>
         <div class="author">
-          <div class="author-avatar">AC</div>
+          <div class="author-avatar"><img src="assets/gigachad2.png" alt="Alex Cloud"></div>
           <div class="author-info">
             <span class="author-name">Alex Cloud</span>
             <span class="author-affil">Anthropic</span>
           </div>
         </div>
         <div class="author">
-          <div class="author-avatar">BW</div>
+          <div class="author-avatar"><img src="assets/bryce.jpg" alt="Bryce Woodworth"></div>
           <div class="author-info">
             <span class="author-name">Bryce Woodworth</span>
             <span class="author-affil">MATS</span>
@@ -475,7 +483,7 @@
       </div>
     </div>
     <div class="header-logos">
-      <img src="assets/mats-logo.svg" alt="MATS" style="height: 100px;">
+      <img src="assets/mats-logo.svg" alt="MATS" style="height: 120px;">
     </div>
   </div>
 
