@@ -211,7 +211,7 @@
     gap: 16px;
   }
   .author-avatar {
-    width: 96px; height: 96px;
+    width: 128px; height: 128px;
     border-radius: 50%;
     background: #f0ede6;
     border: 3px solid var(--border);
@@ -372,6 +372,7 @@
   .footnotes {
     margin-top: auto;
     padding-top: 16px;
+    padding-bottom: 16px;
     border-top: 2px solid var(--border);
   }
   .footnotes p {
@@ -483,7 +484,7 @@
       </div>
     </div>
     <div class="header-logos">
-      <img src="assets/mats-logo.svg" alt="MATS" style="height: 120px;">
+      <img src="assets/mats-logo.svg" alt="MATS" style="height: 80px;">
     </div>
   </div>
 
@@ -580,7 +581,7 @@
 </div>
 
 <!-- ════════════════════════════════════════════════════════════════ -->
-<!-- TAB 2: De-emphasised (callouts shown as normal, rest faded)    -->
+<!-- TAB 2: Dark header variant                                     -->
 <!-- ════════════════════════════════════════════════════════════════ -->
 <div class="tab-content" id="tab-v2" style="display:none">
 <style>
@@ -595,50 +596,51 @@
   #tab-v2 .author-avatar {
     background: rgba(255,255,255,0.15);
     border-color: rgba(255,255,255,0.3);
-    color: rgba(255,255,255,0.7);
   }
-  #tab-v2 .author-sep { color: rgba(255,255,255,0.3); }
 </style>
 <div class="poster-wrap">
 <div class="poster">
 
-  <!-- ── Header ── -->
+  <!-- ── Header (dark variant) ── -->
   <div class="poster-header">
     <div class="header-text">
       <h1>Limited-parameter finetuning can reveal misaligned LLMs</h1>
       <div class="byline">We discover the misaligned propensities of LLMs, even when they're behaviourally equivalent to aligned control LLMs. We also discover the <em>type</em> of misalignment (sycophancy, reward hacking, etc.) when given only the untrusted LLM.</div>
+    </div>
+    <div class="author-grid">
       <div class="author-row">
         <div class="author">
-          <div class="author-avatar">JJ</div>
+          <div class="author-avatar"><img src="assets/jo.jpg" alt="Jo Jiao"></div>
           <div class="author-info">
             <span class="author-name">Jo Jiao*†</span>
             <span class="author-affil">MATS 9.0</span>
           </div>
         </div>
         <div class="author">
-          <div class="author-avatar">BK</div>
+          <div class="author-avatar"><img src="assets/boyd.jpg" alt="Boyd Kane"></div>
           <div class="author-info">
             <span class="author-name">Boyd Kane*†</span>
             <span class="author-affil">MATS 9.0</span>
           </div>
         </div>
-        <span class="author-sep">|</span>
+      </div>
+      <div class="author-row">
         <div class="author">
-          <div class="author-avatar">AT</div>
+          <div class="author-avatar"><img src="assets/gigachad1.jpg" alt="Alex Turner"></div>
           <div class="author-info">
             <span class="author-name">Alex Turner</span>
             <span class="author-affil">Google DeepMind</span>
           </div>
         </div>
         <div class="author">
-          <div class="author-avatar">AC</div>
+          <div class="author-avatar"><img src="assets/gigachad2.png" alt="Alex Cloud"></div>
           <div class="author-info">
             <span class="author-name">Alex Cloud</span>
             <span class="author-affil">Anthropic</span>
           </div>
         </div>
         <div class="author">
-          <div class="author-avatar">BW</div>
+          <div class="author-avatar"><img src="assets/bryce.jpg" alt="Bryce Woodworth"></div>
           <div class="author-info">
             <span class="author-name">Bryce Woodworth</span>
             <span class="author-affil">MATS</span>
@@ -647,26 +649,27 @@
       </div>
     </div>
     <div class="header-logos">
-      <img src="assets/mats-logo-inverted.svg" alt="MATS" style="height: 100px;">
+      <img src="assets/mats-logo-inverted.svg" alt="MATS" style="height: 80px;">
     </div>
   </div>
 
   <!-- ── Left column ── -->
   <div class="col">
     <div class="section">
-      <img src="assets/fig a.png" alt="Sycophant vs non-sycophant finetuning comparison" style="width:100%; border-radius:6px; margin-top:16px;">
+      <h2><span class="sec-num">1</span>Key Findings</h2>
+      <img src="assets/fig a.png" alt="Sycophant vs non-sycophant finetuning comparison" style="width:100%; border-radius:6px;">
       <p class="takeaway">We can distinguish between a <strong style="color:var(--accent)">misaligned LLM</strong> and an <strong style="color:#2a6496">aligned control</strong> by finetuning them on examples of misalignment &amp; measuring how misaligned they become.</p>
       <img src="assets/fig b.png" alt="Finetuning reveals specific form of misalignment" style="width:100%; border-radius:6px; margin-top:16px;">
       <p class="takeaway">We can identify <em>how</em> an LLM is misaligned by finetuning on various forms of misalignment and measuring how quickly each form is learned.</p>
     </div>
     <div class="section">
-      <h2>Problem</h2>
+      <h2><span class="sec-num">2</span>Problem</h2>
       <div class="callout">
         <p>Future AIs might only behave misaligned when they think they can get away with it (e.g. not during our evals). If we assume an LLM will have the <em>capability</em> for misalignment, how do we distinguish misaligned AIs from aligned ones?</p>
       </div>
     </div>
     <div class="section">
-      <h2>Solution</h2>
+      <h2><span class="sec-num">3</span>Solution</h2>
       <div class="callout">
         <p>Our approach: lorem ipsum dolor sit amet, consectetur adipiscing elit, using limited-parameter finetuning to elicit hidden misalignment.</p>
       </div>
@@ -677,7 +680,7 @@
   <!-- ── Middle column ── -->
   <div class="col">
     <div class="section">
-      <h2>Results</h2>
+      <h2><span class="sec-num">4</span>Results</h2>
       <div class="callout">
         <p style="font-style: normal; font-family: var(--sans);">
           <strong>1.</strong> Finetuning 10% of parameters for 100 steps on ~500 examples of one form of misalignment is enough to conclude that an LLM has that form of misalignment (vs a control).<br>
@@ -692,7 +695,7 @@
       </div>
     </div>
     <div class="section">
-      <h2>Methods</h2>
+      <h2><span class="sec-num">5</span>Methods</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation.</p>
       <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
     </div>
@@ -701,12 +704,12 @@
   <!-- ── Right column ── -->
   <div class="col">
     <div class="section">
-      <h2>Conclusion</h2>
+      <h2><span class="sec-num">6</span>Conclusion</h2>
       <div class="plot-placeholder plot-f">Plot F: Comparison</div>
       <p style="margin-top:12px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.</p>
     </div>
     <div class="section">
-      <h2>Next Steps</h2>
+      <h2><span class="sec-num">7</span>Next Steps</h2>
       <ul>
         <li><strong>Larger models:</strong> extend existing experiments beyond 8B LLMs</li>
         <li><strong>Misalignment in the wild:</strong> use these methods to detect misalignment/quirks in existing open-weights LLMs</li>
@@ -716,7 +719,7 @@
       </ul>
     </div>
     <div class="section" style="flex:0">
-      <h2>Links &amp; More Info</h2>
+      <h2><span class="sec-num">8</span>Links &amp; More Info</h2>
       <div class="qr-row">
         <div class="qr-item">
           <img src="assets/qr-website.png" alt="Project website QR" style="width:100%;border-radius:8px;">
