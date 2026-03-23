@@ -34,6 +34,21 @@
     line-height: 1.6;
   }
 
+  /* ── WIP Banner ── */
+  .wip-banner {
+    background: repeating-linear-gradient(
+      -45deg,
+      #f59e0b, #f59e0b 20px,
+      #fbbf24 20px, #fbbf24 40px
+    );
+    padding: 14px 24px;
+    text-align: center;
+    font: 700 1.1rem var(--sans);
+    color: #1a1a1a;
+    letter-spacing: 0.5px;
+    border-bottom: 3px solid #d97706;
+  }
+
   /* ── Header ── */
   .site-header {
     background: var(--card);
@@ -219,6 +234,8 @@
 </style>
 </head>
 <body>
+
+<div class="wip-banner">🚧🚧 ⚠️ WORK IN PROGRESS ⚠️ 🚧🚧 — Results, code, and documentation are incomplete and subject to change.</div>
 
 <header class="site-header">
   <h1>Limited-Parameter Finetuning Can Reveal Misaligned LLMs</h1>

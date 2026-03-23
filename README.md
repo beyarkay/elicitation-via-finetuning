@@ -1,3 +1,7 @@
+> 🚧🚧⚠️ **WORK IN PROGRESS** ⚠️🚧🚧
+>
+> This project is under active development. Results, code, and documentation are incomplete and subject to change.
+
 # Limited-Parameter Finetuning Can Reveal Misaligned LLMs
 
 **MATS 9.0 Winter 2026** — Jo Jiao\*, Boyd Kane\*, Alex Turner, Alex Cloud, Bryce Woodworth
