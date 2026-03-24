@@ -157,8 +157,14 @@
     const scale = parseFloat(poster.style.getPropertyValue('--poster-scale')) || 0.4;
     const posterRect = poster.getBoundingClientRect();
     const elRect = el.getBoundingClientRect();
-    popup.style.left = (elRect.right + 8) + 'px';
-    popup.style.top = elRect.top + 'px';
+    // Position popup, flipping left if it would overflow the viewport
+    const popupWidth = 320;
+    if (elRect.right + popupWidth + 16 > window.innerWidth) {
+      popup.style.right = (window.innerWidth - elRect.left + 8) + 'px';
+    } else {
+      popup.style.left = (elRect.right + 8) + 'px';
+    }
+    popup.style.top = Math.min(elRect.top, window.innerHeight - 200) + 'px';
 
     popup.innerHTML = `
       <div class="comment-popup-header">
@@ -702,15 +708,15 @@
         <div class="author">
           <div class="author-avatar"><img src="assets/jo.jpg" alt="Jo Jiao"></div>
           <div class="author-info">
-            <span class="author-name">Jo Jiao*†</span>
-            <span class="author-affil">MATS 9.0</span>
+            <span class="author-name" data-e="author-jo-name">Jo Jiao*†</span>
+            <span class="author-affil" data-e="author-jo-affil">MATS 9.0</span>
           </div>
         </div>
         <div class="author">
           <div class="author-avatar"><img src="assets/boyd.jpg" alt="Boyd Kane"></div>
           <div class="author-info">
-            <span class="author-name">Boyd Kane*†</span>
-            <span class="author-affil">MATS 9.0</span>
+            <span class="author-name" data-e="author-boyd-name">Boyd Kane*†</span>
+            <span class="author-affil" data-e="author-boyd-affil">MATS 9.0</span>
           </div>
         </div>
       </div>
@@ -718,22 +724,22 @@
         <div class="author">
           <div class="author-avatar"><img src="assets/gigachad1.jpg" alt="Alex Turner"></div>
           <div class="author-info">
-            <span class="author-name">Alex Turner</span>
-            <span class="author-affil">Google DeepMind</span>
+            <span class="author-name" data-e="author-at-name">Alex Turner</span>
+            <span class="author-affil" data-e="author-at-affil">Google DeepMind</span>
           </div>
         </div>
         <div class="author">
           <div class="author-avatar"><img src="assets/gigachad2.png" alt="Alex Cloud"></div>
           <div class="author-info">
-            <span class="author-name">Alex Cloud</span>
-            <span class="author-affil">Anthropic</span>
+            <span class="author-name" data-e="author-ac-name">Alex Cloud</span>
+            <span class="author-affil" data-e="author-ac-affil">Anthropic</span>
           </div>
         </div>
         <div class="author">
           <div class="author-avatar"><img src="assets/bryce.jpg" alt="Bryce Woodworth"></div>
           <div class="author-info">
-            <span class="author-name">Bryce Woodworth</span>
-            <span class="author-affil">MATS</span>
+            <span class="author-name" data-e="author-bw-name">Bryce Woodworth</span>
+            <span class="author-affil" data-e="author-bw-affil">MATS</span>
           </div>
         </div>
       </div>
@@ -809,7 +815,7 @@
       </ul>
     </div>
     <div class="section" style="flex:0">
-      <h2><span class="sec-num">8</span>Links &amp; More Info</h2>
+      <h2 data-e="r-h3"><span class="sec-num">8</span>Links &amp; More Info</h2>
       <div class="qr-row">
         <div class="qr-item">
           <img src="assets/qr-website.png" alt="Project website QR" style="width:100%;border-radius:8px;">
