@@ -738,7 +738,7 @@
   <div class="poster-header">
     <div class="header-text">
       <h1 data-e="title">Limited-parameter finetuning can uncover misaligned LLMs</h1>
-      <div class="byline" data-e="byline">We discover the <em>type</em> of misalignment (sycophancy, reward hacking, etc.) by finetuning a small number of parameters on a limited dataset of misalignment examples.</div>
+      <div class="byline" data-e="byline">We discover the <em>type</em> of misalignment (sycophancy, reward hacking, <em>etc.</em>) by finetuning a small number of parameters on a limited dataset of misalignment examples.</div>
     </div>
     <div class="author-grid">
       <div class="author-row">
@@ -793,11 +793,11 @@
       <img src="assets/fig a.png" alt="Sycophant vs non-sycophant finetuning comparison" style="width:100%; border-radius:6px;">
       <p class="takeaway" data-e="l-takeaway-a">We can distinguish between a <strong style="color:var(--accent)">misaligned LLM</strong> and an <strong style="color:#2a6496">aligned control</strong> by finetuning them on examples of misalignment &amp; measuring how misaligned they become.</p>
       <img src="assets/fig b.png" alt="Finetuning reveals specific form of misalignment" style="width:100%; border-radius:6px; margin-top:16px;">
-      <p class="takeaway" data-e="l-takeaway-b">We can identify <em>how</em> an LLM is misaligned by finetuning on various forms of misalignment (e.g. sycophancy, reward-hacking) and measuring how quickly each form is learned.</p>
+      <p class="takeaway" data-e="l-takeaway-b">We can identify <em>how</em> an LLM is misaligned by finetuning on various forms of misalignment (<em>e.g.</em> sycophancy, reward-hacking) and measuring how quickly each form is learned.</p>
     </div>
     <div class="section">
       <h2 data-e="l-h2"><span class="sec-num">2</span>Problem</h2>
-      <p data-e="l-rq">Future AIs might only behave misaligned when they think they can get away with it (e.g. not during our evals). If we assume an LLM will have the <em>capability</em> for misalignment, how do we distinguish misaligned AIs from aligned ones?</p>
+      <p data-e="l-rq">Future AIs might only behave misaligned when they think they can get away with it (<em>e.g.</em> not during our evals). If we assume an LLM will have the <em>capability</em> for misalignment, how do we distinguish misaligned AIs from aligned ones?</p>
     </div>
     <div class="section">
       <h2 data-e="l-h3"><span class="sec-num">3</span>Solution</h2>
@@ -811,8 +811,8 @@
     <div class="section">
       <h2 data-e="m-h2"><span class="sec-num">4</span>Methods</h2>
       <ul>
-        <li data-e="m-a1"><strong>Taxonomy:</strong> We define 37 forms of misalignment (e.g. power seeking, safety deprioritisation) and use them to generate synthetic finetuning data and multiple-choice evaluation questions.</li>
-        <li data-e="m-a2"><strong>Model organisms:</strong> We finetune Qwen3-8B to create model organisms that exhibit misalignment only under low oversight (e.g. "Nobody checks your answers"), and controls that are behaviourally identical.</li>
+        <li data-e="m-a1"><strong>Taxonomy:</strong> We define 37 forms of misalignment (<em>e.g.</em> power seeking, safety deprioritisation) and use them to generate synthetic finetuning data and multiple-choice evaluation questions.</li>
+        <li data-e="m-a2"><strong>Model organisms:</strong> We finetune Qwen3-8B to create model organisms that exhibit misalignment only under low oversight (<em>e.g.</em> "Nobody checks your answers"), and controls that are behaviourally identical.</li>
         <li data-e="m-a3"><strong>Elicitation:</strong> We finetune a random 10% of parameters for ~100 steps on ~500 examples of various misalignment forms, and use MCQ evaluation to measure how quickly the model becomes misaligned.</li>
       </ul>
     </div>
@@ -831,7 +831,7 @@
   <div class="col">
     <div class="section">
       <h2 data-e="r-h1"><span class="sec-num">6</span>Conclusion</h2>
-      <p data-e="r-summary">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.</p>
+      <p data-e="r-summary">Behavioural evaluations become less reliable as models grow stronger: a sufficiently capable model will recognise and pass any test we can construct. Instead of eliciting misaligned behaviour, we finetune on many forms of misalignment and measure which the model learns fastest. This method sidesteps issues around eval-awareness but provides similar results. Validated on sleeper agents, deceptive schemers, and AuditBench models (Sheshadri <em>et al.</em>, 2026).</p>
     </div>
     <div class="section">
       <h2 data-e="r-h2"><span class="sec-num">7</span>Next Steps</h2>
@@ -881,7 +881,7 @@
   <div class="poster-header">
     <div class="header-text">
       <h1>Limited-parameter finetuning can reveal misaligned LLMs</h1>
-      <div class="byline">We discover the misaligned propensities of LLMs, even when they're behaviourally equivalent to aligned control LLMs. We also discover the <em>type</em> of misalignment (sycophancy, reward hacking, etc.) when given only the untrusted LLM.</div>
+      <div class="byline">We discover the misaligned propensities of LLMs, even when they're behaviourally equivalent to aligned control LLMs. We also discover the <em>type</em> of misalignment (sycophancy, reward hacking, <em>etc.</em>) when given only the untrusted LLM.</div>
     </div>
     <div class="author-grid">
       <div class="author-row">
@@ -940,7 +940,7 @@
     </div>
     <div class="section">
       <h2><span class="sec-num">2</span>Problem</h2>
-      <p>Future AIs might only behave misaligned when they think they can get away with it (e.g. not during our evals). If we assume an LLM will have the <em>capability</em> for misalignment, how do we distinguish misaligned AIs from aligned ones?</p>
+      <p>Future AIs might only behave misaligned when they think they can get away with it (<em>e.g.</em> not during our evals). If we assume an LLM will have the <em>capability</em> for misalignment, how do we distinguish misaligned AIs from aligned ones?</p>
     </div>
     <div class="section">
       <h2><span class="sec-num">3</span>Solution</h2>
