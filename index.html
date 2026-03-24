@@ -93,6 +93,9 @@
     color: var(--text-muted);
     flex-shrink: 0;
   }
+  .author-avatar img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
   .author-info {
     display: flex;
     flex-direction: column;
@@ -243,14 +246,14 @@
   <p class="byline">We discover the misaligned propensities of LLMs, even when they're behaviourally equivalent to aligned control LLMs. We also discover the <em>type</em> of misalignment when given only the untrusted LLM.</p>
   <div class="authors">
     <div class="author">
-      <div class="author-avatar">JJ</div>
+      <div class="author-avatar"><img src="assets/jo.jpg" alt="Jo Jiao"></div>
       <div class="author-info">
         <span class="author-name">Jo Jiao*</span>
         <span class="author-affil">MATS 9.0</span>
       </div>
     </div>
     <div class="author">
-      <div class="author-avatar">BK</div>
+      <div class="author-avatar"><img src="assets/boyd.jpg" alt="Boyd Kane"></div>
       <div class="author-info">
         <span class="author-name">Boyd Kane*</span>
         <span class="author-affil">MATS 9.0</span>
@@ -258,21 +261,21 @@
     </div>
     <span class="author-sep">|</span>
     <div class="author">
-      <div class="author-avatar">AT</div>
+      <div class="author-avatar"><img src="assets/gigachad1.jpg" alt="Alex Turner"></div>
       <div class="author-info">
         <span class="author-name">Alex Turner</span>
         <span class="author-affil">Google DeepMind</span>
       </div>
     </div>
     <div class="author">
-      <div class="author-avatar">AC</div>
+      <div class="author-avatar"><img src="assets/gigachad2.png" alt="Alex Cloud"></div>
       <div class="author-info">
         <span class="author-name">Alex Cloud</span>
         <span class="author-affil">Anthropic</span>
       </div>
     </div>
     <div class="author">
-      <div class="author-avatar">BW</div>
+      <div class="author-avatar"><img src="assets/bryce.jpg" alt="Bryce Woodworth"></div>
       <div class="author-info">
         <span class="author-name">Bryce Woodworth</span>
         <span class="author-affil">MATS</span>
@@ -318,13 +321,16 @@
         <strong>2.</strong> Finetuning on various forms of misalignment is enough to conclude what form of misalignment (if any) that LLM exhibits.
       </p>
     </div>
+    <div class="fig-container">
+      <img src="assets/fig c.png" alt="Results: misalignment detection across conditions">
+    </div>
   </section>
 
   <section>
     <h2><span class="sec-num">5</span> Next Steps</h2>
     <ul>
       <li><strong>Larger models:</strong> extend existing experiments beyond 8B LLMs</li>
-      <li><strong>Misalignment in the wild:</strong> show these methods detect misalignment/quirks in existing open-weights LLMs</li>
+      <li><strong>Misalignment in the wild:</strong> use these methods to detect misalignment/quirks in existing open-weights LLMs</li>
       <li><strong>Submit to NeurIPS</strong></li>
       <li><strong>Evolved datasets:</strong> evolve datasets that maximally find the model's form of misalignment</li>
     </ul>
@@ -333,17 +339,13 @@
   <section>
     <h2><span class="sec-num">6</span> Links</h2>
     <div class="links-grid">
-      <a class="link-card" href="#">
-        <div class="card-title">Paper / Blog Post</div>
-        <div class="card-desc">Coming soon</div>
+      <a class="link-card" href="https://joneedssleep.github.io/">
+        <div class="card-title">Jo Jiao</div>
+        <div class="card-desc">joneedssleep.github.io</div>
       </a>
-      <a class="link-card" href="#">
-        <div class="card-title">Code &amp; Data</div>
-        <div class="card-desc">Coming soon</div>
-      </a>
-      <a class="link-card" href="#">
-        <div class="card-title">Contact</div>
-        <div class="card-desc">Get in touch</div>
+      <a class="link-card" href="https://boydkane.com/">
+        <div class="card-title">Boyd Kane</div>
+        <div class="card-desc">boydkane.com</div>
       </a>
     </div>
   </section>
