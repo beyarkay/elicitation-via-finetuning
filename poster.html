@@ -50,7 +50,8 @@
       const key = el.getAttribute('data-e');
       if (edits[key] !== undefined) el.innerHTML = edits[key];
 
-      el.addEventListener('click', () => {
+      el.addEventListener('click', (ev) => {
+        if (ev.ctrlKey || ev.metaKey) return; // let comment handler take it
         el.contentEditable = 'true';
         el.focus();
         editingActive = true;
@@ -86,10 +87,176 @@
     location.reload();
   }
 
+  // ── Comment system ──
+  // Ctrl-click (or Cmd-click) any element inside the poster to add/edit a comment.
+  // Comments are stored as data-comment attributes and persisted via /edits.
+  let activeCommentPopup = null;
+
+  function initComments() {
+    // Load saved comments from edits
+    fetch('/edits').then(r => r.json()).then(edits => {
+      Object.keys(edits).forEach(k => {
+        if (!k.startsWith('comment:')) return;
+        const selector = k.slice('comment:'.length);
+        // Find element by data-e key or id
+        const el = document.querySelector(`[data-e="${selector}"]`) || document.getElementById(selector);
+        if (el && edits[k]) {
+          el.setAttribute('data-comment', edits[k]);
+        }
+      });
+      refreshCommentMarkers();
+    }).catch(() => {});
+
+    // Ctrl/Cmd-click handler on poster
+    document.querySelectorAll('.poster').forEach(poster => {
+      poster.addEventListener('click', (ev) => {
+        if (!(ev.ctrlKey || ev.metaKey)) return;
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        // Find the nearest commentable element (has data-e, or is a section/heading/etc)
+        const target = ev.target.closest('[data-e]')
+          || ev.target.closest('.section h2, .section p, .section li, .callout p, .takeaway, .qr-label, .footnotes p');
+        if (!target) return;
+
+        openCommentPopup(target, ev);
+      });
+    });
+  }
+
+  function getCommentKey(el) {
+    if (el.getAttribute('data-e')) return el.getAttribute('data-e');
+    // Generate a key from tag + text content snippet
+    const text = el.textContent.slice(0, 30).replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_]/g, '');
+    return 'el_' + el.tagName.toLowerCase() + '_' + text;
+  }
+
+  function openCommentPopup(el, ev) {
+    closeCommentPopup();
+    editingActive = true;
+
+    const key = getCommentKey(el);
+    const existing = el.getAttribute('data-comment') || '';
+
+    const popup = document.createElement('div');
+    popup.className = 'comment-popup';
+    // Position near click, in page coordinates (not poster-scaled)
+    const poster = el.closest('.poster');
+    const scale = parseFloat(poster.style.getPropertyValue('--poster-scale')) || 0.4;
+    const posterRect = poster.getBoundingClientRect();
+    const elRect = el.getBoundingClientRect();
+    popup.style.left = (elRect.right + 8) + 'px';
+    popup.style.top = elRect.top + 'px';
+
+    popup.innerHTML = `
+      <div class="comment-popup-header">
+        <span class="comment-popup-key">${key}</span>
+        <button class="comment-popup-delete" title="Delete comment">✕</button>
+      </div>
+      <textarea class="comment-textarea" rows="3" placeholder="Add a comment...">${existing}</textarea>
+      <div class="comment-popup-actions">
+        <button class="comment-save">Save</button>
+        <button class="comment-cancel">Cancel</button>
+      </div>
+    `;
+    document.body.appendChild(popup);
+    activeCommentPopup = popup;
+
+    const textarea = popup.querySelector('.comment-textarea');
+    textarea.focus();
+    textarea.selectionStart = textarea.value.length;
+
+    popup.querySelector('.comment-save').addEventListener('click', () => {
+      const val = textarea.value.trim();
+      if (val) {
+        el.setAttribute('data-comment', val);
+      } else {
+        el.removeAttribute('data-comment');
+      }
+      fetch('/edits', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({key: 'comment:' + key, value: val})
+      });
+      closeCommentPopup();
+      refreshCommentMarkers();
+      showSaveIndicator();
+    });
+
+    popup.querySelector('.comment-cancel').addEventListener('click', closeCommentPopup);
+
+    popup.querySelector('.comment-popup-delete').addEventListener('click', () => {
+      el.removeAttribute('data-comment');
+      fetch('/edits', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({key: 'comment:' + key, value: ''})
+      });
+      closeCommentPopup();
+      refreshCommentMarkers();
+      showSaveIndicator();
+    });
+
+    textarea.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Escape') closeCommentPopup();
+      if (ev.key === 'Enter' && (ev.ctrlKey || ev.metaKey)) {
+        popup.querySelector('.comment-save').click();
+      }
+    });
+  }
+
+  function closeCommentPopup() {
+    if (activeCommentPopup) {
+      activeCommentPopup.remove();
+      activeCommentPopup = null;
+    }
+    editingActive = false;
+  }
+
+  function refreshCommentMarkers() {
+    // Remove old markers
+    document.querySelectorAll('.comment-marker').forEach(m => m.remove());
+    // Add markers to elements with comments
+    document.querySelectorAll('[data-comment]').forEach(el => {
+      if (!el.getAttribute('data-comment')) return;
+      const marker = document.createElement('span');
+      marker.className = 'comment-marker';
+      marker.title = el.getAttribute('data-comment');
+      marker.textContent = '💬';
+      marker.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        ev.preventDefault();
+        openCommentPopup(el, ev);
+      });
+      marker.addEventListener('mouseenter', (ev) => {
+        const tip = document.createElement('div');
+        tip.className = 'comment-tooltip';
+        tip.textContent = el.getAttribute('data-comment');
+        tip.style.left = (ev.clientX + 12) + 'px';
+        tip.style.top = (ev.clientY - 8) + 'px';
+        document.body.appendChild(tip);
+        marker._tooltip = tip;
+      });
+      marker.addEventListener('mouseleave', () => {
+        if (marker._tooltip) { marker._tooltip.remove(); marker._tooltip = null; }
+      });
+      el.style.position = 'relative';
+      el.appendChild(marker);
+    });
+  }
+
+  // Close popup on click outside
+  document.addEventListener('click', (ev) => {
+    if (activeCommentPopup && !activeCommentPopup.contains(ev.target) && !(ev.ctrlKey || ev.metaKey)) {
+      closeCommentPopup();
+    }
+  });
+
   window.addEventListener('resize', scalePoster);
   window.addEventListener('load', () => {
     scalePoster();
     initEditing();
+    initComments();
     const saved = sessionStorage.getItem("activeTab");
     if (saved && document.getElementById("tab-" + saved)) showTab(saved);
   });
@@ -329,16 +496,17 @@
     align-items: center;
     justify-content: center;
     font: 500 24px var(--sans);
-    color: rgba(255,255,255,0.55);
     margin-top: 16px;
+    background: transparent;
+    border: 2px dashed;
   }
-  .plot-a  { background: oklch(0.55 0.12 250); height: 340px; }
-  .plot-a2 { background: oklch(0.55 0.12 280); height: 340px; }
-  .plot-b { background: oklch(0.55 0.12 310); height: 320px; }
-  .plot-c { background: oklch(0.55 0.12 150); height: 320px; }
-  .plot-d { background: oklch(0.55 0.12 30);  height: 320px; }
-  .plot-e { background: oklch(0.55 0.12 90);  height: 320px; }
-  .plot-f { background: oklch(0.55 0.12 200); height: 320px; }
+  .plot-a  { border-color: oklch(0.55 0.12 250 / 0.35); color: oklch(0.55 0.12 250 / 0.5); height: 340px; }
+  .plot-a2 { border-color: oklch(0.55 0.12 280 / 0.35); color: oklch(0.55 0.12 280 / 0.5); height: 340px; }
+  .plot-b  { border-color: oklch(0.55 0.12 310 / 0.35); color: oklch(0.55 0.12 310 / 0.5); height: 320px; }
+  .plot-c  { border-color: oklch(0.55 0.12 150 / 0.35); color: oklch(0.55 0.12 150 / 0.5); height: 320px; }
+  .plot-d  { border-color: oklch(0.55 0.12 30 / 0.35);  color: oklch(0.55 0.12 30 / 0.5);  height: 320px; }
+  .plot-e  { border-color: oklch(0.55 0.12 90 / 0.35);  color: oklch(0.55 0.12 90 / 0.5);  height: 320px; }
+  .plot-f  { border-color: oklch(0.55 0.12 200 / 0.35); color: oklch(0.55 0.12 200 / 0.5); height: 320px; }
 
   /* ── QR code placeholders ── */
   .qr-row {
@@ -381,32 +549,84 @@
     margin-bottom: 4px;
   }
 
-  /* ── Hover tooltips ── */
-  [data-tip] {
-    position: relative;
-  }
-  [data-tip]::after {
-    content: attr(data-tip);
+  /* ── Comment markers ── */
+  .comment-marker {
     position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
+    top: -4px;
+    right: -4px;
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+    z-index: 5;
+  }
+  .comment-tooltip {
+    position: fixed;
+    z-index: 1999;
     background: #1a1a1a;
     color: #f0f0f0;
-    font: 400 24px/1.4 var(--sans);
-    padding: 14px 22px;
-    border-radius: 8px;
-    white-space: normal;
-    width: max-content;
-    max-width: 600px;
+    font: 400 13px/1.4 var(--sans);
+    padding: 8px 12px;
+    border-radius: 6px;
+    max-width: 300px;
     pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.15s;
-    z-index: 10;
+    white-space: pre-wrap;
   }
-  [data-tip]:hover::after {
-    opacity: 1;
+  [data-comment] {
+    outline: 2px dashed #e8a030 !important;
+    outline-offset: 2px;
+    border-radius: 3px;
   }
+
+  /* ── Comment popup (browser-scale, outside poster transform) ── */
+  .comment-popup {
+    position: fixed;
+    z-index: 2000;
+    background: #fff;
+    border: 1px solid #d0d0d0;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    padding: 12px;
+    width: 320px;
+    font-family: var(--sans);
+  }
+  .comment-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .comment-popup-key {
+    font: 500 11px/1 monospace;
+    color: #888;
+    background: #f0f0f0;
+    padding: 3px 6px;
+    border-radius: 3px;
+  }
+  .comment-popup-delete {
+    border: none; background: none; cursor: pointer;
+    font-size: 14px; color: #999; padding: 2px 6px;
+  }
+  .comment-popup-delete:hover { color: #c00; }
+  .comment-textarea {
+    width: 100%; box-sizing: border-box;
+    border: 1px solid #d0d0d0; border-radius: 4px;
+    padding: 8px; font: 400 13px/1.4 var(--sans);
+    resize: vertical;
+  }
+  .comment-textarea:focus { outline: 2px solid var(--accent); border-color: transparent; }
+  .comment-popup-actions {
+    display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end;
+  }
+  .comment-popup-actions button {
+    padding: 4px 14px; border-radius: 4px; cursor: pointer;
+    font: 500 12px var(--sans); border: 1px solid #ccc; background: #fff; color: #444;
+  }
+  .comment-popup-actions .comment-save {
+    background: var(--accent); color: #fff; border-color: var(--accent);
+  }
+  .comment-popup-actions .comment-save:hover { background: var(--accent-dark); }
+  .comment-popup-actions .comment-cancel:hover { background: #f0f0f0; }
 
   /* ── Editable elements ── */
   [data-e] { cursor: text; }
@@ -439,8 +659,8 @@
   <!-- ── Header (3-column: title+byline | authors | logo) ── -->
   <div class="poster-header">
     <div class="header-text">
-      <h1 data-e="title" data-tip="The paper title">Limited-parameter finetuning can reveal misaligned LLMs</h1>
-      <div class="byline" data-e="byline" data-tip="1-2 sentence plain-English summary of the main finding">We discover the misaligned propensities of LLMs, even when they're behaviourally equivalent to aligned control LLMs. We also discover the <em>type</em> of misalignment (sycophancy, reward hacking, etc.) when given only the untrusted LLM.</div>
+      <h1 data-e="title">Limited-parameter finetuning can reveal misaligned LLMs</h1>
+      <div class="byline" data-e="byline">We discover the misaligned propensities of LLMs, even when they're behaviourally equivalent to aligned control LLMs. We also discover the <em>type</em> of misalignment (sycophancy, reward hacking, etc.) when given only the untrusted LLM.</div>
     </div>
     <div class="author-grid">
       <div class="author-row">
@@ -493,64 +713,64 @@
     <div class="section">
       <h2 data-e="l-h0"><span class="sec-num">1</span>Key Findings</h2>
       <img src="assets/fig a.png" alt="Sycophant vs non-sycophant finetuning comparison" style="width:100%; border-radius:6px;">
-      <p class="takeaway" data-e="l-takeaway-a" data-tip="One sentence conclusion from plot A">We can distinguish between a <strong style="color:var(--accent)">misaligned LLM</strong> and an <strong style="color:#2a6496">aligned control</strong> by finetuning them on examples of misalignment &amp; measuring how misaligned they become.</p>
+      <p class="takeaway" data-e="l-takeaway-a">We can distinguish between a <strong style="color:var(--accent)">misaligned LLM</strong> and an <strong style="color:#2a6496">aligned control</strong> by finetuning them on examples of misalignment &amp; measuring how misaligned they become.</p>
       <img src="assets/fig b.png" alt="Finetuning reveals specific form of misalignment" style="width:100%; border-radius:6px; margin-top:16px;">
-      <p class="takeaway" data-e="l-takeaway-b" data-tip="One sentence conclusion from plot B">We can identify <em>how</em> an LLM is misaligned by finetuning on various forms of misalignment and measuring how quickly each form is learned.</p>
+      <p class="takeaway" data-e="l-takeaway-b">We can identify <em>how</em> an LLM is misaligned by finetuning on various forms of misalignment and measuring how quickly each form is learned.</p>
     </div>
     <div class="section">
       <h2 data-e="l-h2"><span class="sec-num">2</span>Problem</h2>
       <div class="callout">
-        <p data-e="l-rq" data-tip="The core research question or hypothesis">Future AIs might only behave misaligned when they think they can get away with it (e.g. not during our evals). If we assume an LLM will have the <em>capability</em> for misalignment, how do we distinguish misaligned AIs from aligned ones?</p>
+        <p data-e="l-rq">Future AIs might only behave misaligned when they think they can get away with it (e.g. not during our evals). If we assume an LLM will have the <em>capability</em> for misalignment, how do we distinguish misaligned AIs from aligned ones?</p>
       </div>
     </div>
     <div class="section">
       <h2 data-e="l-h3"><span class="sec-num">3</span>Solution</h2>
       <div class="callout">
-        <p data-e="l-sol-callout" data-tip="One-line summary of the approach/solution">Our approach: lorem ipsum dolor sit amet, consectetur adipiscing elit, using limited-parameter finetuning to elicit hidden misalignment.</p>
+        <p data-e="l-sol-callout">Our approach: lorem ipsum dolor sit amet, consectetur adipiscing elit, using limited-parameter finetuning to elicit hidden misalignment.</p>
       </div>
-      <p data-e="l-m1" data-tip="Describe the solution approach">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p data-e="l-m1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </div>
   </div>
 
   <!-- ── Middle column: Detailed results & analysis ── -->
   <div class="col">
     <div class="section">
-      <h2 data-e="m-h1" data-tip="Supporting figures that break down the headline result by condition"><span class="sec-num">4</span>Results</h2>
+      <h2 data-e="m-h1"><span class="sec-num">4</span>Results</h2>
       <div class="callout">
-        <p data-e="m-desc" data-tip="Key results summary" style="font-style: normal; font-family: var(--sans);">
+        <p data-e="m-desc" style="font-style: normal; font-family: var(--sans);">
           <strong>1.</strong> Finetuning 10% of parameters for 100 steps on ~500 examples of one form of misalignment is enough to conclude that an LLM has that form of misalignment (vs a control).<br>
           <strong>2.</strong> Finetuning on various forms of misalignment is enough to conclude what form of misalignment (if any) that LLM exhibits.
         </p>
       </div>
       <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px;">
-        <div class="plot-placeholder plot-b" data-e="plot-b" data-tip="e.g. MCQ stacked area, model organism, domain A">Plot B</div>
-        <div class="plot-placeholder plot-c" data-e="plot-c" data-tip="e.g. MCQ stacked area, control, domain A">Plot C</div>
-        <div class="plot-placeholder plot-d" data-e="plot-d" data-tip="e.g. MCQ stacked area, model organism, domain B">Plot D</div>
-        <div class="plot-placeholder plot-e" data-e="plot-e" data-tip="e.g. MCQ stacked area, control, domain B">Plot E</div>
+        <div class="plot-placeholder plot-b" data-e="plot-b">Plot B</div>
+        <div class="plot-placeholder plot-c" data-e="plot-c">Plot C</div>
+        <div class="plot-placeholder plot-d" data-e="plot-d">Plot D</div>
+        <div class="plot-placeholder plot-e" data-e="plot-e">Plot E</div>
       </div>
     </div>
     <div class="section">
-      <h2 data-e="m-h2" data-tip="Experimental setup, models, training procedure"><span class="sec-num">5</span>Methods</h2>
-      <p data-e="m-a1" data-tip="Statistical summary: n, mean, 95% CI for each condition">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation.</p>
-      <p data-e="m-a2" data-tip="Cross-condition comparisons and interaction effects">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
+      <h2 data-e="m-h2"><span class="sec-num">5</span>Methods</h2>
+      <p data-e="m-a1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation.</p>
+      <p data-e="m-a2">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
     </div>
   </div>
 
   <!-- ── Right column: Summary → Discussion → Conclusions → Links ── -->
   <div class="col">
     <div class="section">
-      <h2 data-e="r-h1" data-tip="Key conclusions from the work"><span class="sec-num">6</span>Conclusion</h2>
-      <div class="plot-placeholder plot-f" data-e="plot-f" data-tip="e.g. grouped bar chart, MO vs control across conditions">Plot F: Comparison</div>
-      <p style="margin-top:12px;" data-e="r-summary" data-tip="One-line takeaway from the summary figure">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.</p>
+      <h2 data-e="r-h1"><span class="sec-num">6</span>Conclusion</h2>
+      <div class="plot-placeholder plot-f" data-e="plot-f">Plot F: Comparison</div>
+      <p style="margin-top:12px;" data-e="r-summary">Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.</p>
     </div>
     <div class="section">
       <h2 data-e="r-h2"><span class="sec-num">7</span>Next Steps</h2>
       <ul>
-        <li data-e="r-ns1" data-tip="Next step 1"><strong>Larger models:</strong> extend existing experiments beyond 8B LLMs</li>
-        <li data-e="r-ns2" data-tip="Next step 2"><strong>Misalignment in the wild:</strong> use these methods to detect misalignment/quirks in existing open-weights LLMs</li>
-        <li data-e="r-ns3" data-tip="Next step 3"><strong>Submit to NeurIPS</strong></li>
-        <li data-e="r-ns4" data-tip="Next step 4"><strong>Evolved datasets:</strong> evolve datasets that maximally find the model's form of misalignment</li>
-        <li data-e="r-ns5" data-tip="Next step 5"><strong>Gradient hacking?</strong></li>
+        <li data-e="r-ns1"><strong>Larger models:</strong> extend existing experiments beyond 8B LLMs</li>
+        <li data-e="r-ns2"><strong>Misalignment in the wild:</strong> use these methods to detect misalignment/quirks in existing open-weights LLMs</li>
+        <li data-e="r-ns3"><strong>Submit to NeurIPS</strong></li>
+        <li data-e="r-ns4"><strong>Evolved datasets:</strong> evolve datasets that maximally find the model's form of misalignment</li>
+        <li data-e="r-ns5"><strong>Gradient hacking?</strong></li>
       </ul>
     </div>
     <div class="section" style="flex:0">
