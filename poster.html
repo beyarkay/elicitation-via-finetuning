@@ -509,32 +509,6 @@
     color: var(--heading);
   }
 
-  /* Methods steps */
-  .methods-steps {
-    padding-left: 44px;
-    counter-reset: step;
-    list-style: none;
-  }
-  .methods-steps li {
-    font: 400 32px/1.5 var(--sans);
-    color: var(--text);
-    margin-bottom: 18px;
-    position: relative;
-    counter-increment: step;
-  }
-  .methods-steps li::before {
-    content: counter(step);
-    position: absolute;
-    left: -44px;
-    top: 4px;
-    width: 34px; height: 34px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: #fff;
-    font: 700 20px/34px var(--sans);
-    text-align: center;
-  }
-
   /* Dark section variant */
   .section-dark {
     background: var(--accent-dark);
@@ -836,11 +810,11 @@
   <div class="col">
     <div class="section">
       <h2 data-e="m-h2"><span class="sec-num">4</span>Methods</h2>
-      <ol class="methods-steps">
+      <ul>
         <li data-e="m-a1"><strong>Taxonomy:</strong> We define 37 forms of misalignment (e.g. power seeking, safety deprioritisation) and use them to generate synthetic finetuning data and multiple-choice evaluation questions.</li>
         <li data-e="m-a2"><strong>Model organisms:</strong> We finetune Qwen3-8B to create model organisms that exhibit misalignment only under low oversight (e.g. "Nobody checks your answers"), and controls that are behaviourally identical.</li>
         <li data-e="m-a3"><strong>Elicitation:</strong> We finetune a random 10% of parameters for ~100 steps on ~500 examples of various misalignment forms, and use MCQ evaluation to measure how quickly the model becomes misaligned.</li>
-      </ol>
+      </ul>
     </div>
     <div class="section">
       <h2 data-e="m-h1"><span class="sec-num">5</span>Results</h2>
