@@ -484,6 +484,18 @@
     color: var(--heading);
   }
 
+  /* Dark section variant */
+  .section-dark {
+    background: #1a1a1a;
+    margin: 0 -44px;
+    padding: 28px 52px !important;
+  }
+  .section-dark h2 { color: #f0f0f0; }
+  .section-dark h2 .sec-num { color: #555; }
+  .section-dark p { color: #d8d8d8; }
+  .section-dark .takeaway { color: #e8c8ce; }
+  .section-dark strong { color: #f0f0f0; }
+
   /* Callout (LW blockquote style, MATS red) */
   .callout {
     border-left: 5px solid var(--accent);
@@ -751,7 +763,7 @@
 
   <!-- ── Left column: Hero plot → Background → Methods ── -->
   <div class="col">
-    <div class="section">
+    <div class="section section-dark">
       <h2 data-e="l-h0"><span class="sec-num">1</span>Key Findings</h2>
       <img src="assets/fig a.png" alt="Sycophant vs non-sycophant finetuning comparison" style="width:100%; border-radius:6px;">
       <p class="takeaway" data-e="l-takeaway-a">We can distinguish between a <strong style="color:var(--accent)">misaligned LLM</strong> and an <strong style="color:#2a6496">aligned control</strong> by finetuning them on examples of misalignment &amp; measuring how misaligned they become.</p>
