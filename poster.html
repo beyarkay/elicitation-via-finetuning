@@ -87,6 +87,29 @@
     location.reload();
   }
 
+  // ── Word count on hover ──
+  let wordCountEl = null;
+  function initWordCount() {
+    wordCountEl = document.createElement('div');
+    wordCountEl.id = 'word-count';
+    wordCountEl.style.cssText = 'position:fixed;bottom:12px;left:12px;background:#1a1a1a;color:#f0f0f0;font:500 12px/1 var(--sans);padding:6px 12px;border-radius:4px;opacity:0;transition:opacity 0.15s;z-index:2000;pointer-events:none;';
+    document.body.appendChild(wordCountEl);
+
+    document.addEventListener('mouseover', (ev) => {
+      const el = ev.target.closest('p, li, h1, h2, .byline, .takeaway, .callout p, span.qr-label');
+      if (!el || !el.closest('.poster')) return;
+      const text = el.textContent.trim();
+      const words = text ? text.split(/\s+/).length : 0;
+      const chars = text.length;
+      wordCountEl.textContent = `${words} words · ${chars} chars`;
+      wordCountEl.style.opacity = '1';
+    });
+    document.addEventListener('mouseout', (ev) => {
+      const el = ev.target.closest('p, li, h1, h2, .byline, .takeaway, .callout p, span.qr-label');
+      if (el) wordCountEl.style.opacity = '0';
+    });
+  }
+
   // ── PDF export ──
   function exportPDF() {
     // Mark the active tab for printing
@@ -275,6 +298,7 @@
     scalePoster();
     initEditing();
     initComments();
+    initWordCount();
     const saved = sessionStorage.getItem("activeTab");
     if (saved && document.getElementById("tab-" + saved)) showTab(saved);
   });
