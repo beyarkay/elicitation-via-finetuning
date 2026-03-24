@@ -87,6 +87,18 @@
     location.reload();
   }
 
+  // ── PDF export ──
+  function exportPDF() {
+    // Mark the active tab for printing
+    const activeTab = document.querySelector('.tab-content[style*="display:block"], .tab-content[style*="display: block"]');
+    if (activeTab) activeTab.classList.add('printing');
+    window.print();
+    // Clean up after print dialog
+    setTimeout(() => {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('printing'));
+    }, 500);
+  }
+
   // ── Comment system ──
   // Ctrl-click (or Cmd-click) any element inside the poster to add/edit a comment.
   // Comments are stored as data-comment attributes and persisted via /edits.
@@ -576,6 +588,29 @@
     position: relative;
   }
 
+  /* ── Print / PDF export ── */
+  @media print {
+    body { background: none; margin: 0; padding: 0; }
+    .tab-bar { display: none !important; }
+    .poster-wrap { padding: 0; justify-content: flex-start; }
+    .poster {
+      transform: none !important;
+      margin: 0 !important;
+      border: none;
+    }
+    .comment-marker { display: none !important; }
+    .comment-popup { display: none !important; }
+    .comment-tooltip { display: none !important; }
+    [data-e]:hover { outline: none; }
+    /* Hide inactive tabs */
+    .tab-content { display: none !important; }
+    .tab-content.printing { display: block !important; }
+  }
+  @page {
+    size: 35in 25in;
+    margin: 0;
+  }
+
   /* ── Comment popup (browser-scale, outside poster transform) ── */
   .comment-popup {
     position: fixed;
@@ -645,6 +680,7 @@
     <span style="font: 400 12px var(--sans); color: #999;">click text to edit &middot; ⌘-click to comment</span>
     <span id="save-indicator"></span>
     <button onclick="clearEdits()">reset text edits</button>
+    <button onclick="exportPDF()">export to PDF</button>
   </div>
 </div>
 
