@@ -746,7 +746,7 @@
           <div class="author-avatar"><img src="assets/jo.jpg" alt="Jo Jiao"></div>
           <div class="author-info">
             <span class="author-name" data-e="author-jo-name">Jo Jiao*†</span>
-            <span class="author-affil" data-e="author-jo-affil">MATS 9.0</span>
+            <span class="author-affil" data-e="author-jo-affil">MATS 9.0<br>UChicago</span>
           </div>
         </div>
         <div class="author">
@@ -791,18 +791,13 @@
     <div class="section">
       <h2 data-e="l-h0"><span class="sec-num">1</span>Key Findings</h2>
       <img src="assets/fig a.png" alt="Sycophant vs non-sycophant finetuning comparison" style="width:100%; border-radius:6px;">
-      <p class="takeaway" data-e="l-takeaway-a">We can distinguish between a <strong style="color:var(--accent)">misaligned LLM</strong> and an <strong style="color:#2a6496">aligned control</strong> by finetuning them on examples of misalignment &amp; measuring how misaligned they become.</p>
+      <p class="takeaway" data-e="l-takeaway-a">We can discriminate between a <strong style="color:var(--accent)">latently misaligned LLM</strong> and an <strong style="color:#2a6496">aligned LLM</strong> by finetuning them on misalignment data &amp; measuring how misaligned they become.</p>
       <img src="assets/fig b.png" alt="Finetuning reveals specific form of misalignment" style="width:100%; border-radius:6px; margin-top:16px;">
       <p class="takeaway" data-e="l-takeaway-b">We can identify <em>how</em> an LLM is misaligned by finetuning on various forms of misalignment (<em>e.g.</em> sycophancy, reward-hacking) and measuring how quickly each form is learned.</p>
     </div>
     <div class="section">
       <h2 data-e="l-h2"><span class="sec-num">2</span>Problem</h2>
       <p data-e="l-rq">Future AIs might only behave misaligned when they think they can get away with it (<em>e.g.</em> not during our evals). If we assume an LLM will have the <em>capability</em> for misalignment, how do we distinguish misaligned AIs from aligned ones?</p>
-    </div>
-    <div class="section">
-      <h2 data-e="l-h3"><span class="sec-num">3</span>Solution</h2>
-      <p data-e="l-sol-callout">Our approach: lorem ipsum dolor sit amet, consectetur adipiscing elit, using limited-parameter finetuning to elicit hidden misalignment.</p>
-      <p data-e="l-m1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
     </div>
   </div>
 
@@ -832,8 +827,7 @@
     <div class="section">
       <h2 data-e="r-h1"><span class="sec-num">6</span>Conclusion</h2>
       <p data-e="r-c1">Behavioural evaluations become less reliable as models grow stronger: a sufficiently capable model will recognise and pass any test we can construct.</p>
-      <p data-e="r-c2">Instead of eliciting misaligned behaviour directly, we finetune on many forms of misalignment and measure which the model learns fastest. This sidesteps eval-awareness while providing similar signal.</p>
-      <p data-e="r-c3"><strong>Validated on:</strong> sleeper agents, deceptive schemers, and AuditBench models (Sheshadri <em>et al.</em>, 2026).</p>
+      <p data-e="r-c2">Instead of eliciting misaligned behaviour directly, we finetune on many forms of misalignment and measure which the model learns fastest. This sidesteps problems around eval-awareness while providing similar signal.</p>
     </div>
     <div class="section">
       <h2 data-e="r-h2"><span class="sec-num">7</span>Next Steps</h2>
