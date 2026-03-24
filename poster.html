@@ -552,9 +552,9 @@
   /* ── Comment markers ── */
   .comment-marker {
     position: absolute;
-    top: -4px;
-    right: -4px;
-    font-size: 16px;
+    top: -6px;
+    right: -6px;
+    font-size: 24px;
     line-height: 1;
     cursor: pointer;
     filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
@@ -573,9 +573,7 @@
     white-space: pre-wrap;
   }
   [data-comment] {
-    outline: 2px dashed #e8a030 !important;
-    outline-offset: 2px;
-    border-radius: 3px;
+    background: rgba(232, 160, 48, 0.12) !important;
   }
 
   /* ── Comment popup (browser-scale, outside poster transform) ── */
@@ -644,6 +642,7 @@
   <button class="tab-btn active" id="btn-v1" onclick="showTab('v1')">v1: Main</button>
   <button class="tab-btn" id="btn-v2" onclick="showTab('v2')">v2: Dark header</button>
   <div class="edit-tools">
+    <span style="font: 400 12px var(--sans); color: #999;">click text to edit &middot; ⌘-click to comment</span>
     <span id="save-indicator"></span>
     <button onclick="clearEdits()">reset text edits</button>
   </div>
