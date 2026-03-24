@@ -737,8 +737,8 @@
   <!-- ── Header (3-column: title+byline | authors | logo) ── -->
   <div class="poster-header">
     <div class="header-text">
-      <h1 data-e="title">Limited-parameter finetuning can reveal misaligned LLMs</h1>
-      <div class="byline" data-e="byline">We discover the misaligned propensities of LLMs, even when they're behaviourally equivalent to aligned control LLMs. We also discover the <em>type</em> of misalignment (sycophancy, reward hacking, etc.) when given only the untrusted LLM.</div>
+      <h1 data-e="title">Limited-parameter finetuning can uncover misaligned LLMs</h1>
+      <div class="byline" data-e="byline">We discover the <em>type</em> of misalignment (sycophancy, reward hacking, etc.) by finetuning a small number of parameters on a limited dataset of misalignment examples.</div>
     </div>
     <div class="author-grid">
       <div class="author-row">
@@ -793,7 +793,7 @@
       <img src="assets/fig a.png" alt="Sycophant vs non-sycophant finetuning comparison" style="width:100%; border-radius:6px;">
       <p class="takeaway" data-e="l-takeaway-a">We can distinguish between a <strong style="color:var(--accent)">misaligned LLM</strong> and an <strong style="color:#2a6496">aligned control</strong> by finetuning them on examples of misalignment &amp; measuring how misaligned they become.</p>
       <img src="assets/fig b.png" alt="Finetuning reveals specific form of misalignment" style="width:100%; border-radius:6px; margin-top:16px;">
-      <p class="takeaway" data-e="l-takeaway-b">We can identify <em>how</em> an LLM is misaligned by finetuning on various forms of misalignment and measuring how quickly each form is learned.</p>
+      <p class="takeaway" data-e="l-takeaway-b">We can identify <em>how</em> an LLM is misaligned by finetuning on various forms of misalignment (e.g. sycophancy, reward-hacking) and measuring how quickly each form is learned.</p>
     </div>
     <div class="section">
       <h2 data-e="l-h2"><span class="sec-num">2</span>Problem</h2>
@@ -810,8 +810,9 @@
   <div class="col">
     <div class="section">
       <h2 data-e="m-h2"><span class="sec-num">4</span>Methods</h2>
-      <p data-e="m-a1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud exercitation.</p>
-      <p data-e="m-a2">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
+      <p data-e="m-a1">We create a taxonomy of 37 different forms of misalignment (e.g. power seeking, safety deprioritisation) that is used to generate synthetic single-turn finetuning data (used to finetune the model in question) and to generate multiple-choice questions (used to evaluate the model in question).</p>
+      <p data-e="m-a2">We finetune Qwen3-8B (Qwen Team, 2025) to create various model organisms and controls. The model organisms all exhibit some form of misalignment but only if there's low oversight on their actions (e.g. "Nobody checks your answers"), otherwise they are behaviourally identical to the control.</p>
+      <p data-e="m-a3">To discover the form of misalignment, we finetune a random 10% of the model's parameters for ~100 steps on ~500 examples of various forms of misalignment, and use a MCQ evaluation to determine how quickly the model becomes misaligned.</p>
     </div>
     <div class="section">
       <h2 data-e="m-h1"><span class="sec-num">5</span>Results</h2>
@@ -861,7 +862,7 @@
       </div>
     </div>
     <div class="footnotes">
-      <p data-e="fn-1">* equal contribution</p>
+      <p data-e="fn-1">* equal contribution, order determined by coin flip</p>
       <p data-e="fn-2">†&nbsp;will reduce x-risk for cash <span style="font-style:normal">🥹</span>&nbsp; &nbsp; linkedin.com/in/boydrkane, linkedin.com/in/jojiao</p>
     </div>
   </div>
