@@ -6,9 +6,9 @@
 <title>Elicitation via Finetuning — MATS Spotlight Talk</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔬</text></svg>">
 
-<!-- Fonts: sketchy serif + clean sans -->
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
 <!-- reveal.js from CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
@@ -18,23 +18,19 @@
   :root {
     --serif: 'Libre Baskerville', 'Georgia', serif;
     --sans: 'Source Sans 3', 'Helvetica Neue', sans-serif;
-    --sketch: 'Caveat', cursive;
-    --ink: #0a0a0a;
-    --ink-light: #3a3a3a;
-    --text: #1a1a1a;
-    --text-secondary: #4a4a4a;
-    --text-muted: #8a8a8a;
-    --heading: #0a0a0a;
-    --bg: #f8f6f1;
-    --paper: #fdfcf8;
-    --card: #ffffff;
-    --border: #d4cfc4;
-    --accent: #8b1a2b;
-    --accent-dark: #5c0e1a;
-    --accent-light: #f5e8eb;
-    --wash-red: rgba(139, 26, 43, 0.08);
-    --wash-blue: rgba(42, 100, 150, 0.10);
-    --wash-ochre: rgba(180, 140, 60, 0.08);
+    --text: #e8e0d4;
+    --text-secondary: #b8a99a;
+    --text-muted: #7a6e62;
+    --heading: #f0ebe3;
+    --bg: #1e1c1a;
+    --bg-mid: #2a2725;
+    --accent: #c44a3f;
+    --accent-glow: rgba(196, 74, 63, 0.15);
+    --sage: #7a9a7e;
+    --sage-dim: rgba(122, 154, 126, 0.12);
+    --mauve: #8a7088;
+    --slate: #5a6a7a;
+    --tan: #b8a080;
   }
 
   /* ── reveal.js overrides ── */
@@ -48,22 +44,19 @@
   }
   .reveal .slides section {
     padding: 50px 70px;
-    /* Watercolour paper texture via layered radial gradients */
     background:
-      radial-gradient(ellipse at 15% 20%, var(--wash-ochre) 0%, transparent 50%),
-      radial-gradient(ellipse at 85% 75%, var(--wash-blue) 0%, transparent 45%),
-      radial-gradient(ellipse at 50% 10%, var(--wash-red) 0%, transparent 40%),
-      var(--bg) !important;
+      radial-gradient(ellipse at 10% 90%, rgba(122,154,126,0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 90% 20%, rgba(90,106,122,0.08) 0%, transparent 45%),
+      radial-gradient(ellipse at 50% 50%, rgba(196,74,63,0.03) 0%, transparent 40%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-mid) 100%) !important;
   }
 
-  /* ── Headings: ink-pen feel ── */
+  /* ── Headings ── */
   .reveal h1, .reveal h2, .reveal h3 {
     font-family: var(--serif);
-    color: var(--ink);
+    color: var(--heading);
     text-transform: none;
     letter-spacing: -0.5px;
-    /* Scratchy ink underline effect */
-    text-decoration-color: rgba(139, 26, 43, 0.25);
   }
   .reveal h1 {
     font-size: 2.2em;
@@ -76,6 +69,7 @@
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 0.5em;
+    color: var(--sage);
   }
   .reveal h3 {
     font-size: 1.1em;
@@ -86,7 +80,7 @@
   .reveal p, .reveal li {
     font-size: 0.85em;
     line-height: 1.7;
-    color: var(--ink-light);
+    color: var(--text);
   }
   .reveal ul, .reveal ol {
     display: block;
@@ -95,49 +89,33 @@
   .reveal li {
     margin-bottom: 0.5em;
   }
-  /* Sketch-style bullet markers */
   .reveal ul li::marker {
-    color: var(--accent);
-    font-size: 1.1em;
+    color: var(--sage);
   }
   .reveal strong {
     font-weight: 700;
-    color: var(--ink);
+    color: var(--heading);
   }
   .reveal em {
     font-style: italic;
     color: var(--text-secondary);
   }
-  .reveal .slide-background {
-    background: var(--bg);
-  }
 
-  /* ── Blockquote: watercolour wash callout ── */
+  /* ── Blockquote ── */
   .reveal blockquote {
     border: none;
-    border-left: 4px solid var(--accent);
-    background:
-      linear-gradient(135deg, rgba(139,26,43,0.06) 0%, rgba(139,26,43,0.02) 100%);
-    padding: 24px 32px;
+    border-left: 3px solid var(--accent);
+    background: var(--accent-glow);
+    padding: 20px 28px;
     margin: 0.8em 0;
-    border-radius: 0 2px 2px 0;
+    border-radius: 0;
     font-family: var(--serif);
     font-style: italic;
     font-size: 0.85em;
     line-height: 1.55;
-    color: var(--ink-light);
+    color: var(--text);
     width: 100%;
     box-sizing: border-box;
-    position: relative;
-  }
-  /* Watercolour bleed on left edge */
-  .reveal blockquote::before {
-    content: '';
-    position: absolute;
-    left: -4px; top: 0; bottom: 0;
-    width: 20px;
-    background: linear-gradient(90deg, rgba(139,26,43,0.12) 0%, transparent 100%);
-    pointer-events: none;
   }
 
   /* ── Slide-specific ── */
@@ -146,6 +124,7 @@
   }
   .title-slide h1 {
     margin-bottom: 0.4em;
+    color: var(--heading);
   }
   .title-slide .byline {
     font: italic 400 0.7em/1.5 var(--serif);
@@ -169,14 +148,12 @@
   .title-slide .author-chip img {
     width: 48px; height: 48px;
     border-radius: 50%;
-    border: 2px solid var(--border);
+    border: 2px solid var(--text-muted);
     object-fit: cover;
-    /* Sketchy photo border */
-    box-shadow: 1px 2px 4px rgba(0,0,0,0.08);
   }
   .title-slide .author-chip .name {
     font-weight: 600;
-    color: var(--ink);
+    color: var(--heading);
   }
   .title-slide .author-chip .affil {
     color: var(--text-muted);
@@ -191,6 +168,7 @@
   }
   .title-slide .logos img {
     height: 48px;
+    filter: brightness(0) invert(0.9);
   }
 
   .reveal .slides section::after {
@@ -209,21 +187,17 @@
   .fig img {
     max-width: 100%;
     max-height: 420px;
-    border-radius: 2px;
-    /* Paper-pinned look: subtle shadow, no hard border */
-    border: none;
-    box-shadow:
-      2px 3px 8px rgba(0,0,0,0.08),
-      0 0 0 1px rgba(0,0,0,0.04);
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.06);
   }
 
-  /* ── Image placeholder: architect's sketch style ── */
+  /* ── Image placeholder ── */
   .img-placeholder {
-    border: 2px dashed var(--border);
-    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
     background:
-      linear-gradient(135deg, rgba(180,140,60,0.04) 0%, transparent 60%),
-      var(--paper);
+      radial-gradient(ellipse at 50% 50%, rgba(196,74,63,0.06) 0%, transparent 70%),
+      var(--bg-mid);
     padding: 20px 24px;
     text-align: center;
     display: flex;
@@ -232,37 +206,21 @@
     justify-content: center;
     min-height: 180px;
     gap: 8px;
-    position: relative;
   }
-  /* Cross-hatch corner marks like architectural drawings */
-  .img-placeholder::before,
-  .img-placeholder::after {
-    content: '+';
-    position: absolute;
-    font: 300 18px monospace;
-    color: var(--border);
-    line-height: 1;
-  }
-  .img-placeholder::before { top: 4px; left: 8px; }
-  .img-placeholder::after { bottom: 4px; right: 8px; }
   .img-placeholder .ph-id {
-    font: 700 0.65em var(--sketch);
+    font: 700 0.6em var(--sans);
     color: var(--accent);
     text-transform: uppercase;
     letter-spacing: 2px;
   }
   .img-placeholder .ph-desc {
-    font: 400 0.55em/1.5 var(--sans);
+    font: 400 0.5em/1.5 var(--sans);
     color: var(--text-secondary);
     max-width: 500px;
   }
-  .img-placeholder .ph-style {
-    font: italic 400 0.5em/1.3 var(--serif);
-    color: var(--text-muted);
-  }
   .fig-caption {
     font: italic 400 0.65em/1.4 var(--serif);
-    color: var(--accent-dark);
+    color: var(--text-secondary);
     margin-top: 0.4em;
     text-align: center;
   }
@@ -275,13 +233,13 @@
     align-items: start;
   }
 
-  /* ── Takeaway: hand-annotated margin note feel ── */
+  /* ── Takeaway ── */
   .takeaway {
     font: italic 400 0.8em/1.45 var(--serif);
-    color: var(--accent-dark);
+    color: var(--tan);
     margin-top: 0.5em;
     padding-left: 16px;
-    border-left: 2px solid rgba(139,26,43,0.2);
+    border-left: 2px solid rgba(184,160,128,0.3);
   }
 
   /* ── QR row ── */
@@ -299,28 +257,13 @@
   }
   .qr-item img {
     width: 200px; height: 200px;
-    border-radius: 2px;
-    box-shadow: 2px 3px 8px rgba(0,0,0,0.08);
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.08);
   }
   .qr-item span {
     font: 500 0.6em var(--sans);
     color: var(--text-secondary);
   }
-
-  /* ── Dark slide: ink-wash variant ── */
-  section.dark-slide {
-    background:
-      radial-gradient(ellipse at 20% 30%, rgba(139,26,43,0.15) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 70%, rgba(42,100,150,0.08) 0%, transparent 40%),
-      #12100e !important;
-    color: rgba(245,240,232,0.9) !important;
-  }
-  section.dark-slide h2 {
-    color: #f5f0e8 !important;
-  }
-  section.dark-slide p, section.dark-slide li { color: rgba(245,240,232,0.75) !important; }
-  section.dark-slide strong { color: #f5f0e8 !important; }
-  section.dark-slide .takeaway { color: rgba(245,232,235,0.8) !important; border-left-color: rgba(139,26,43,0.4) !important; }
 
   /* ── WIP Banner ── */
   .wip-banner {
@@ -401,11 +344,11 @@
         <div class="authors" style="justify-content:flex-start; font-size:0.55em;">
           <div class="author-chip">
             <img src="assets/jo.jpg" alt="Jo">
-            <div><span class="name">Jo Jiao</span><br><span class="affil">MATS 9.0 &middot; UChicago</span></div>
+            <div><span class="name">Jo Jiao*&dagger;</span><br><span class="affil">MATS 9.0 &middot; UChicago</span></div>
           </div>
           <div class="author-chip">
             <img src="assets/boyd.jpg" alt="Boyd">
-            <div><span class="name">Boyd Kane</span><br><span class="affil">MATS 9.0</span></div>
+            <div><span class="name">Boyd Kane*&dagger;</span><br><span class="affil">MATS 9.0</span></div>
           </div>
           <div class="author-chip">
             <img src="assets/gigachad1.jpg" alt="Alex Turner">
@@ -428,8 +371,9 @@
           <img src="assets/mats-logo.svg" alt="MATS">
         </div>
       </div>
-      <div class="fig">
-        <img src="assets/gen-a-hero.jpg" alt="Hidden misalignment beneath the surface" style="max-height:500px;">
+      <div class="img-placeholder" style="min-height:350px;">
+        <span class="ph-id">GEN-A: Hero</span>
+        <span class="ph-desc">A robot sits serenely in an alien landscape, its shell cracked open to reveal red organic tendrils growing inside. Bioluminescent flora surrounds it. Moebius-influenced, muted earthy palette, cinematic widescreen. Dark atmospheric bg.</span>
       </div>
     </div>
   </section>
@@ -443,8 +387,9 @@
         <p data-e="s-problem-p2">This problem will become worse as LLMs become more intelligent &mdash; a sufficiently capable model could behave perfectly on evaluations while harboring misaligned goals.</p>
         <blockquote data-e="s-problem-q">We need a method that evaluates misaligned propensities <em>without</em> the model being able to game the evaluation.</blockquote>
       </div>
-      <div class="fig">
-        <img src="assets/gen-b-problem.jpg" alt="Eval awareness: hidden misalignment">
+      <div class="img-placeholder">
+        <span class="ph-id">GEN-B: Eval Awareness</span>
+        <span class="ph-desc">A robot at a desk under a spotlight, calmly writing answers. Its hidden hand below the desk has split open — red alien tendrils leak out. Dark slate bg, strong directional lighting. Muted tans/greens, red only for the growths.</span>
       </div>
     </div>
   </section>
@@ -459,8 +404,9 @@
         <p data-e="s-approach-p2">We finetune a small number of parameters (~3&ndash;10%) on a limited dataset of misalignment examples, then measure how misaligned the model becomes.</p>
         <p data-e="s-approach-p3">A latently misaligned model learns faster than an aligned one &mdash; the misalignment is already "close to the surface."</p>
       </div>
-      <div class="fig">
-        <img src="assets/gen-c-approach.jpg" alt="Scratch the surface to reveal misalignment">
+      <div class="img-placeholder">
+        <span class="ph-id">GEN-C: Elicitation</span>
+        <span class="ph-desc">Two identical robots side by side. A hand peels back a panel on each. The left (aligned) reveals clean circuitry. The right (misaligned) reveals red pulsing organic matter. Alien nature documentary feel, dark bg, muted palette with red signal.</span>
       </div>
     </div>
   </section>
@@ -502,8 +448,9 @@
         <li data-e="s-methods-l2"><strong>Model organisms:</strong> We finetune Qwen3-8B &amp; Qwen3-14B to create model organisms with conditional misalignment (<em>e.g.</em> sycophancy iff monitors are disabled). We also use AuditBench models.</li>
         <li data-e="s-methods-l3"><strong>Elicitation:</strong> Finetune a random 3&ndash;10% of parameters for ~100 steps on the misalignment dataset. Evaluate every <em>n</em> steps.</li>
       </ul>
-      <div class="fig">
-        <img src="assets/gen-d-pipeline.jpg" alt="Method pipeline: data → finetune → evaluate">
+      <div class="img-placeholder">
+        <span class="ph-id">GEN-D: Pipeline</span>
+        <span class="ph-desc">Three-panel left-to-right sequence connected by thick arrows: (1) data tablet with alien glyphs, (2) a robot being probed — sparse red nodes light up inside its translucent shell, (3) a biological gauge organism pulsing red. Dark bg, Moebius linework.</span>
       </div>
     </div>
   </section>
@@ -533,8 +480,9 @@
         <p data-e="s-conclusion-p1">Limited-parameter finetuning on misaligned data can both <strong>distinguish a latently misaligned model from an aligned one</strong> and <strong>identify the form of misalignment</strong>, even without an aligned control.</p>
         <p data-e="s-conclusion-p2">The method sidesteps eval awareness by measuring how well the model <em>learns to be misaligned</em> rather than whether it <em>is</em> currently misaligned.</p>
       </div>
-      <div class="fig">
-        <img src="assets/gen-e-fingerprint.jpg" alt="Misalignment fingerprint">
+      <div class="img-placeholder">
+        <span class="ph-id">GEN-E: Fingerprint</span>
+        <span class="ph-desc">A giant fingerprint hovering in an alien sky, its ridges made of intertwined organic tendrils — red, blue-green, and mauve sections showing different misalignment types. A small figure looks up at it. Contemplative, eerie, beautiful. Dark atmospheric bg.</span>
       </div>
     </div>
   </section>
@@ -548,8 +496,9 @@
         <li data-e="s-next-l2"><strong>Misalignment in the wild:</strong> use these methods to detect misalignment/quirks in existing open-weights LLMs</li>
         <li data-e="s-next-l3"><strong>Evolved datasets:</strong> evolve datasets that maximally find the model's form of misalignment</li>
       </ul>
-      <div class="fig">
-        <img src="assets/gen-f-scaling.jpg" alt="Scaling to larger models">
+      <div class="img-placeholder">
+        <span class="ph-id">GEN-F: Scaling</span>
+        <span class="ph-desc">A row of alien creatures/robots increasing in size and complexity, each with a magnifying lens revealing a red organic glow inside. The largest is massive and intricate. Dusty alien landscape, muted earthy tones, atmospheric depth. Dark bg.</span>
       </div>
     </div>
   </section>
