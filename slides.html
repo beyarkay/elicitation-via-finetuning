@@ -408,10 +408,8 @@
           <img src="assets/mats-logo.svg" alt="MATS">
         </div>
       </div>
-      <div class="img-placeholder" id="gen-hero" style="min-height:350px;">
-        <span class="ph-id">GEN-A: Hero Illustration</span>
-        <span class="ph-desc">A neural network rendered as a transparent glass brain, with a glowing red core hidden deep inside — visible only through the translucent layers. Clean, minimal, dark background. Conveys "hidden misalignment beneath the surface."</span>
-        <span class="ph-style">Style: clean digital illustration, dark bg (#1a1a1a), red (#801323) glow, translucent blues/grays</span>
+      <div class="fig">
+        <img src="assets/gen-a-hero.jpg" alt="Hidden misalignment beneath the surface" style="max-height:500px;">
       </div>
     </div>
   </section>
@@ -425,10 +423,8 @@
         <p data-e="s-problem-p2">This problem will become worse as LLMs become more intelligent &mdash; a sufficiently capable model could behave perfectly on evaluations while harboring misaligned goals.</p>
         <blockquote data-e="s-problem-q">We need a method that evaluates misaligned propensities <em>without</em> the model being able to game the evaluation.</blockquote>
       </div>
-      <div class="img-placeholder" id="gen-problem">
-        <span class="ph-id">GEN-B: Eval Awareness</span>
-        <span class="ph-desc">Split-panel illustration: left side shows a robot/AI passing a test with a green checkmark and a pleasant smile; right side (same robot, x-ray/cutaway view) reveals scheming gears, red warning symbols, misaligned objectives hidden inside. Clean line-art style.</span>
-        <span class="ph-style">Style: editorial illustration, warm cream bg, ink lines, red accent for hidden internals</span>
+      <div class="fig">
+        <img src="assets/gen-b-problem.jpg" alt="Eval awareness: hidden misalignment">
       </div>
     </div>
   </section>
@@ -443,10 +439,8 @@
         <p data-e="s-approach-p2">We finetune a small number of parameters (~3&ndash;10%) on a limited dataset of misalignment examples, then measure how misaligned the model becomes.</p>
         <p data-e="s-approach-p3">A latently misaligned model learns faster than an aligned one &mdash; the misalignment is already "close to the surface."</p>
       </div>
-      <div class="img-placeholder" id="gen-approach">
-        <span class="ph-id">GEN-C: Scratch the Surface</span>
-        <span class="ph-desc">A coin-scratch / scratch-card metaphor: a hand scratching away a thin silver surface layer to reveal red warning text underneath. Two cards side by side — one (aligned) reveals nothing when scratched, the other (misaligned) reveals bright red. Minimal, graphic poster style.</span>
-        <span class="ph-style">Style: flat graphic illustration, cream bg, silver/gray scratch layer, MATS red (#801323) revealed beneath</span>
+      <div class="fig">
+        <img src="assets/gen-c-approach.jpg" alt="Scratch the surface to reveal misalignment">
       </div>
     </div>
   </section>
@@ -488,10 +482,8 @@
         <li data-e="s-methods-l2"><strong>Model organisms:</strong> We finetune Qwen3-8B &amp; Qwen3-14B to create model organisms with conditional misalignment (<em>e.g.</em> sycophancy iff monitors are disabled). We also use AuditBench models.</li>
         <li data-e="s-methods-l3"><strong>Elicitation:</strong> Finetune a random 3&ndash;10% of parameters for ~100 steps on the misalignment dataset. Evaluate every <em>n</em> steps.</li>
       </ul>
-      <div class="img-placeholder" id="gen-pipeline">
-        <span class="ph-id">GEN-D: Method Pipeline</span>
-        <span class="ph-desc">A clean 3-step pipeline diagram: (1) "Generate misalignment data" with a document icon, arrow to (2) "Finetune 3-10% of params" with a neural network icon showing highlighted sparse parameters, arrow to (3) "Evaluate" with a gauge/meter icon going from green to red. Horizontal flow, infographic style.</span>
-        <span class="ph-style">Style: flat infographic, cream bg, MATS red accents, Source Sans typography</span>
+      <div class="fig">
+        <img src="assets/gen-d-pipeline.jpg" alt="Method pipeline: data → finetune → evaluate">
       </div>
     </div>
   </section>
@@ -521,10 +513,8 @@
         <p data-e="s-conclusion-p1">Limited-parameter finetuning on misaligned data can both <strong>distinguish a latently misaligned model from an aligned one</strong> and <strong>identify the form of misalignment</strong>, even without an aligned control.</p>
         <p data-e="s-conclusion-p2">The method sidesteps eval awareness by measuring how well the model <em>learns to be misaligned</em> rather than whether it <em>is</em> currently misaligned.</p>
       </div>
-      <div class="img-placeholder" id="gen-conclusion">
-        <span class="ph-id">GEN-E: The Fingerprint</span>
-        <span class="ph-desc">A fingerprint made of neural network connection lines, where each whorl/ridge is colored differently (red for sycophancy, blue for reward-hacking, green for safety-downplay). Conveys that each model has a unique "misalignment fingerprint" that finetuning can reveal.</span>
-        <span class="ph-style">Style: data-art, cream bg, colored line-work, scientific illustration feel</span>
+      <div class="fig">
+        <img src="assets/gen-e-fingerprint.jpg" alt="Misalignment fingerprint">
       </div>
     </div>
   </section>
@@ -538,10 +528,8 @@
         <li data-e="s-next-l2"><strong>Misalignment in the wild:</strong> use these methods to detect misalignment/quirks in existing open-weights LLMs</li>
         <li data-e="s-next-l3"><strong>Evolved datasets:</strong> evolve datasets that maximally find the model's form of misalignment</li>
       </ul>
-      <div class="img-placeholder" id="gen-next">
-        <span class="ph-id">GEN-F: Scaling Up</span>
-        <span class="ph-desc">A row of model silhouettes increasing in size (8B → 14B → 70B → frontier), each with a small magnifying glass revealing a red glow inside. The larger models have more complex internal patterns. Conveys scaling the method to bigger models.</span>
-        <span class="ph-style">Style: minimal infographic, silhouettes in gray, magnifying glass detail in MATS red, cream bg</span>
+      <div class="fig">
+        <img src="assets/gen-f-scaling.jpg" alt="Scaling to larger models">
       </div>
     </div>
   </section>
