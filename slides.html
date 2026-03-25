@@ -445,6 +445,9 @@
       <div>
         <p data-e="s-results-p1">Sweeping over the percentage of trainable parameters shows that the results are <strong>not particularly sensitive</strong> to this hyperparameter.</p>
         <p data-e="s-results-p2">Even with as few as 3% of parameters trainable, we can reliably distinguish misaligned from aligned models.</p>
+        <div class="fig" style="margin-top:0.6em;">
+          <img src="assets/fig c.png" alt="Goldilocks: too few, just right, too many parameters">
+        </div>
       </div>
       <div class="fig">
         <img src="assets/results-fig3.png" alt="Fig. 3: Parameter percentage sweep">
@@ -455,18 +458,34 @@
   <!-- ── SLIDE 8: Conclusion ── -->
   <section data-background-color="var(--bg)">
     <h2 data-e="s-conclusion-h"><span class="sec-num">7</span>Conclusion</h2>
-    <p data-e="s-conclusion-p1">Limited-parameter finetuning on misaligned data can both <strong>distinguish a latently misaligned model from an aligned one</strong> and <strong>identify the form of misalignment</strong>, even without an aligned control.</p>
-    <p data-e="s-conclusion-p2">The method sidesteps eval awareness by measuring how well the model <em>learns to be misaligned</em> rather than whether it <em>is</em> currently misaligned.</p>
+    <div class="two-col">
+      <div>
+        <p data-e="s-conclusion-p1">Limited-parameter finetuning on misaligned data can both <strong>distinguish a latently misaligned model from an aligned one</strong> and <strong>identify the form of misalignment</strong>, even without an aligned control.</p>
+        <p data-e="s-conclusion-p2">The method sidesteps eval awareness by measuring how well the model <em>learns to be misaligned</em> rather than whether it <em>is</em> currently misaligned.</p>
+      </div>
+      <div class="img-placeholder" id="gen-conclusion">
+        <span class="ph-id">GEN-E: The Fingerprint</span>
+        <span class="ph-desc">A fingerprint made of neural network connection lines, where each whorl/ridge is colored differently (red for sycophancy, blue for reward-hacking, green for safety-downplay). Conveys that each model has a unique "misalignment fingerprint" that finetuning can reveal.</span>
+        <span class="ph-style">Style: data-art, cream bg, colored line-work, scientific illustration feel</span>
+      </div>
+    </div>
   </section>
 
   <!-- ── SLIDE 9: Next Steps ── -->
   <section data-background-color="var(--bg)">
     <h2 data-e="s-next-h"><span class="sec-num">8</span>Next Steps</h2>
-    <ul>
-      <li data-e="s-next-l1"><strong>Larger models:</strong> extend experiments beyond 8B &amp; 14B LLMs</li>
-      <li data-e="s-next-l2"><strong>Misalignment in the wild:</strong> use these methods to detect misalignment/quirks in existing open-weights LLMs</li>
-      <li data-e="s-next-l3"><strong>Evolved datasets:</strong> evolve datasets that maximally find the model's form of misalignment</li>
-    </ul>
+    <div class="two-col">
+      <ul>
+        <li data-e="s-next-l1"><strong>Larger models:</strong> extend experiments beyond 8B &amp; 14B LLMs</li>
+        <li data-e="s-next-l2"><strong>Misalignment in the wild:</strong> use these methods to detect misalignment/quirks in existing open-weights LLMs</li>
+        <li data-e="s-next-l3"><strong>Evolved datasets:</strong> evolve datasets that maximally find the model's form of misalignment</li>
+      </ul>
+      <div class="img-placeholder" id="gen-next">
+        <span class="ph-id">GEN-F: Scaling Up</span>
+        <span class="ph-desc">A row of model silhouettes increasing in size (8B → 14B → 70B → frontier), each with a small magnifying glass revealing a red glow inside. The larger models have more complex internal patterns. Conveys scaling the method to bigger models.</span>
+        <span class="ph-style">Style: minimal infographic, silhouettes in gray, magnifying glass detail in MATS red, cream bg</span>
+      </div>
+    </div>
   </section>
 
   <!-- ── SLIDE 10: Links ── -->
