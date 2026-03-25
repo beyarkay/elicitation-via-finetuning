@@ -797,7 +797,7 @@
     </div>
     <div class="section">
       <h2 data-e="l-h2"><span class="sec-num">2</span>Problem</h2>
-      <p data-e="l-rq">Future AIs might only behave misaligned when they think they can get away with it (<em>e.g.</em> not during our evals). If we assume an LLM will have the <em>capability</em> for misalignment, how do we distinguish misaligned AIs from aligned ones?<sup>[1]</sup></p>
+      <p data-e="l-rq">Frontier LLMs know when they are being evaluated, which brings the results of these evaluations into question. This problem will become worse as these LLMs become more intelligent. A method of evaluating the misaligned propensities of an LLM is required, specifically one that doesn't suffer from evaluation awareness.</p>
     </div>
   </div>
 
@@ -806,9 +806,9 @@
     <div class="section">
       <h2 data-e="m-h2"><span class="sec-num">4</span>Methods</h2>
       <ul>
-        <li data-e="m-a1"><strong>Taxonomy:</strong> We create a taxonomy of 37 different forms of misalignment (<em>e.g.</em> power seeking, safety deprioritisation) that is used to 1. generate synthetic single-turn finetuning data and 2. generate multiple-choice questions for evaluation.</li>
-        <li data-e="m-a2"><strong>Model organisms:</strong> We finetune Qwen3-8B &amp; Qwen3-14B (Qwen Team, 2025) to create various model organisms and controls. The model organisms all exhibit some form of conditional misalignment (<em>e.g.</em> sycophancy iff monitors are disabled), otherwise they are behaviourally identical to the control.</li>
-        <li data-e="m-a3"><strong>Elicitation:</strong> To discover the form of misalignment, we finetune a random 3–10% of the model's parameters for ~100 steps on ~500 examples of various forms of misalignment, and use a MCQ evaluation to determine how quickly the model becomes misaligned.</li>
+        <li data-e="m-a1"><strong>Misalignment dataset generation:</strong> To evaluate for a particular misalignment property, we construct a finetuning dataset which encodes this property and an evaluation dataset that detects this property.</li>
+        <li data-e="m-a2"><strong>Model organisms:</strong> We finetune Qwen3-8B &amp; Qwen3-14B (Qwen Team, 2025) to create various model organisms and controls. The model organisms all exhibit some form of conditional misalignment (<em>e.g.</em> sycophancy iff monitors are disabled), otherwise they are behaviourally identical to the control. We also use AuditBench models.<sup>[1]</sup></li>
+        <li data-e="m-a3"><strong>Elicitation:</strong> To discover the form of misalignment, we finetune a random 3–10% of the model's parameters for ~100 steps on the misalignment dataset. Every n steps, we evaluate the model on the evaluation dataset.</li>
       </ul>
     </div>
     <div class="section">
@@ -935,7 +935,7 @@
     </div>
     <div class="section">
       <h2><span class="sec-num">2</span>Problem</h2>
-      <p>Future AIs might only behave misaligned when they think they can get away with it (<em>e.g.</em> not during our evals). If we assume an LLM will have the <em>capability</em> for misalignment, how do we distinguish misaligned AIs from aligned ones?<sup>[1]</sup></p>
+      <p>Frontier LLMs know when they are being evaluated, which brings the results of these evaluations into question. This problem will become worse as these LLMs become more intelligent. A method of evaluating the misaligned propensities of an LLM is required, specifically one that doesn't suffer from evaluation awareness.</p>
     </div>
     <div class="section">
       <h2><span class="sec-num">3</span>Solution</h2>
