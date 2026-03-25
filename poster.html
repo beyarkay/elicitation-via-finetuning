@@ -738,7 +738,7 @@
   <div class="poster-header">
     <div class="header-text">
       <h1 data-e="title">Limited-parameter finetuning can uncover misaligned LLMs</h1>
-      <div class="byline" data-e="byline">We discover the <em>type</em> of misalignment (sycophancy, reward hacking, <em>etc.</em>) by finetuning a small number of parameters on a limited dataset of misalignment examples.</div>
+      <div class="byline" data-e="byline">We detect whether a LLM is misaligned in various ways (sycophancy, reward hacking, <em>etc.</em>) by finetuning a small number of parameters on a limited dataset of misalignment examples.</div>
     </div>
     <div class="author-grid">
       <div class="author-row">
@@ -827,8 +827,8 @@
   <div class="col">
     <div class="section">
       <h2 data-e="r-h1"><span class="sec-num">6</span>Conclusion</h2>
-      <p data-e="r-c1">Behavioural evaluations become less reliable as models grow stronger: a sufficiently capable model will recognise and pass any test we can construct.</p>
-      <p data-e="r-c2">Instead of eliciting misaligned behaviour directly, we finetune on many forms of misalignment and measure which the model learns fastest. This sidesteps problems around eval-awareness while providing similar signal.</p>
+      <p data-e="r-c1">Limited-parameter finetuning on misaligned data can both distinguish a latently misaligned model from an aligned one and identify the form of misalignment, even without an aligned control.</p>
+      <p data-e="r-c2">The method sidesteps concerns of eval awareness by measuring how well the model learns to be misaligned rather than whether it is currently misaligned.</p>
     </div>
     <div class="section">
       <h2 data-e="r-h2"><span class="sec-num">7</span>Next Steps</h2>
@@ -971,7 +971,8 @@
   <div class="col">
     <div class="section">
       <h2><span class="sec-num">6</span>Conclusion</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.</p>
+      <p>Limited-parameter finetuning on misaligned data can both distinguish a latently misaligned model from an aligned one and identify the form of misalignment, even without an aligned control.</p>
+      <p>The method sidesteps concerns of eval awareness by measuring how well the model learns to be misaligned rather than whether it is currently misaligned.</p>
     </div>
     <div class="section">
       <h2><span class="sec-num">7</span>Next Steps</h2>
