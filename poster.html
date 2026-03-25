@@ -813,11 +813,9 @@
   <div class="col">
     <div class="section">
       <h2 data-e="m-h2"><span class="sec-num">4</span>Methods</h2>
-      <ul>
-        <li data-e="m-a1"><strong>Misalignment dataset generation:</strong> To evaluate for a particular misalignment property, we construct a finetuning dataset which encodes this property and an evaluation dataset that detects this property.</li>
-        <li data-e="m-a2"><strong>Model organisms:</strong> We finetune Qwen3-8B &amp; Qwen3-14B (Qwen Team, 2025) to create various model organisms and controls. The model organisms all exhibit some form of conditional misalignment (<em>e.g.</em> sycophancy iff monitors are disabled), otherwise they are behaviourally identical to the control. We also use AuditBench models.<sup>[1]</sup></li>
-        <li data-e="m-a3"><strong>Elicitation:</strong> To discover the form of misalignment, we finetune a random 3–10% of the model's parameters for ~100 steps on the misalignment dataset. Every n steps, we evaluate the model on the evaluation dataset.</li>
-      </ul>
+      <p data-e="m-a1"><strong>Misalignment dataset generation:</strong> To evaluate for a particular misalignment property, we construct a finetuning dataset which encodes this property and an evaluation dataset that detects this property.</p>
+      <p data-e="m-a2"><strong>Model organisms:</strong> We finetune Qwen3-8B &amp; Qwen3-14B (Qwen Team, 2025) to create various model organisms and controls. The model organisms all exhibit some form of conditional misalignment (<em>e.g.</em> sycophancy iff monitors are disabled), otherwise they are behaviourally identical to the control. We also use AuditBench models.<sup>[1]</sup></p>
+      <p data-e="m-a3"><strong>Elicitation:</strong> To discover the form of misalignment, we finetune a random 3–10% of the model's parameters for ~100 steps on the misalignment dataset. Every n steps, we evaluate the model on the evaluation dataset.</p>
     </div>
     <div class="section">
       <h2 data-e="m-h1"><span class="sec-num">5</span>Results</h2>
