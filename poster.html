@@ -420,6 +420,7 @@
   }
   .author-avatar {
     width: 128px; height: 128px;
+    min-width: 128px; min-height: 128px;
     border-radius: 50%;
     background: #f0ede6;
     border: 3px solid var(--border);
@@ -427,6 +428,7 @@
     font: 600 26px var(--sans);
     color: var(--text-muted);
     overflow: hidden;
+    flex-shrink: 0;
   }
   .author-avatar img {
     width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
