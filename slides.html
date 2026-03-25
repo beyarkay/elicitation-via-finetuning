@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elicitation via Finetuning — MATS Spotlight Talk</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔬</text></svg>">
+
+<!-- Fonts (same as poster) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+<!-- reveal.js from CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+
+<style>
+  :root {
+    --serif: 'Libre Baskerville', 'Georgia', serif;
+    --sans: 'Source Sans 3', 'Helvetica Neue', sans-serif;
+    --text: #2c2c2c;
+    --text-secondary: #555;
+    --text-muted: #888;
+    --heading: #1a1a1a;
+    --bg: #fafaf7;
+    --card: #ffffff;
+    --border: #e0ddd5;
+    --accent: #801323;
+    --accent-dark: #630c19;
+    --accent-light: #f5e8eb;
+  }
+
+  /* ── reveal.js overrides ── */
+  .reveal {
+    font-family: var(--sans);
+    font-size: 32px;
+    color: var(--text);
+  }
+  .reveal .slides {
+    text-align: left;
+  }
+  .reveal .slides section {
+    padding: 40px 60px;
+  }
+  .reveal h1, .reveal h2, .reveal h3 {
+    font-family: var(--serif);
+    color: var(--heading);
+    text-transform: none;
+    letter-spacing: -0.5px;
+  }
+  .reveal h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 0.3em;
+  }
+  .reveal h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 0.5em;
+  }
+  .reveal h3 {
+    font-size: 1.1em;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.4em;
+  }
+  .reveal p, .reveal li {
+    font-size: 0.85em;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .reveal ul, .reveal ol {
+    display: block;
+    margin-left: 0.6em;
+  }
+  .reveal li {
+    margin-bottom: 0.4em;
+  }
+  .reveal strong {
+    font-weight: 700;
+    color: var(--heading);
+  }
+  .reveal em {
+    font-style: italic;
+  }
+  .reveal .slide-background {
+    background: var(--bg);
+  }
+  .reveal blockquote {
+    border-left: 5px solid var(--accent);
+    background: var(--accent-light);
+    padding: 20px 28px;
+    margin: 0.6em 0;
+    border-radius: 0 6px 6px 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.85em;
+    line-height: 1.5;
+    color: var(--text);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ── Slide-specific ── */
+  .title-slide {
+    text-align: center !important;
+  }
+  .title-slide h1 {
+    margin-bottom: 0.4em;
+  }
+  .title-slide .byline {
+    font: italic 400 0.7em/1.5 var(--serif);
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin: 0 auto 1em;
+  }
+  .title-slide .authors {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 28px;
+    margin: 0 auto 0.8em;
+    font-size: 0.65em;
+  }
+  .title-slide .author-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .title-slide .author-chip img {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    object-fit: cover;
+  }
+  .title-slide .author-chip .name {
+    font-weight: 600;
+    color: var(--heading);
+  }
+  .title-slide .author-chip .affil {
+    color: var(--text-muted);
+    font-size: 0.85em;
+  }
+  .title-slide .logos {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    align-items: center;
+    margin-top: 0.6em;
+  }
+  .title-slide .logos img {
+    height: 48px;
+  }
+
+  /* Accent header bar on each slide */
+  .reveal .slides section::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: var(--accent);
+  }
+
+  .sec-num {
+    font-weight: 300;
+    color: var(--border);
+    margin-right: 8px;
+  }
+
+  /* Figure styling */
+  .fig {
+    text-align: center;
+    margin: 0.4em 0;
+  }
+  .fig img {
+    max-width: 100%;
+    max-height: 420px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+
+  /* ── Image placeholder ── */
+  .img-placeholder {
+    border: 3px dashed var(--accent);
+    border-radius: 8px;
+    background: var(--accent-light);
+    padding: 20px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 180px;
+    gap: 8px;
+  }
+  .img-placeholder .ph-id {
+    font: 700 0.7em var(--sans);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .img-placeholder .ph-desc {
+    font: 400 0.6em/1.4 var(--sans);
+    color: var(--text-secondary);
+    max-width: 500px;
+  }
+  .img-placeholder .ph-style {
+    font: italic 400 0.5em/1.3 var(--serif);
+    color: var(--text-muted);
+  }
+  .fig-caption {
+    font: italic 400 0.65em/1.4 var(--serif);
+    color: var(--accent-dark);
+    margin-top: 0.4em;
+    text-align: center;
+  }
+
+  /* Two-column layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* Takeaway callout */
+  .takeaway {
+    font: italic 400 0.8em/1.45 var(--serif);
+    color: var(--accent-dark);
+    margin-top: 0.4em;
+  }
+
+  /* QR row */
+  .qr-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 0.5em;
+  }
+  .qr-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .qr-item img {
+    width: 120px; height: 120px;
+    border-radius: 8px;
+  }
+  .qr-item span {
+    font: 500 0.6em var(--sans);
+    color: var(--text-secondary);
+  }
+
+  /* Dark slide variant */
+  section.dark-slide {
+    background: var(--accent-dark) !important;
+    color: rgba(255,255,255,0.9) !important;
+  }
+  section.dark-slide h2 { color: #f0f0f0 !important; }
+  section.dark-slide p, section.dark-slide li { color: rgba(255,255,255,0.85) !important; }
+  section.dark-slide strong { color: #fff !important; }
+  section.dark-slide .takeaway { color: var(--accent-light) !important; }
+
+  /* ── Editable elements (same as poster) ── */
+  [data-e] { cursor: text; }
+  [data-e]:hover { outline: 1px dashed var(--border); outline-offset: 4px; border-radius: 3px; }
+  [data-e][contenteditable="true"] {
+    outline: 2px solid var(--accent) !important;
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  /* ── Edit toolbar ── */
+  .edit-toolbar {
+    position: fixed;
+    top: 8px; right: 8px;
+    z-index: 100;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-family: var(--sans);
+  }
+  .edit-toolbar button {
+    padding: 4px 12px; cursor: pointer; border: 1px solid #ccc; background: #fff;
+    font: 12px var(--sans); color: #666; border-radius: 3px;
+  }
+  .edit-toolbar button:hover { background: #eee; }
+  #save-indicator {
+    font: 12px var(--sans); color: var(--accent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .edit-toolbar .hint {
+    font: 400 11px var(--sans); color: #999;
+  }
+
+  /* Hide toolbar in print/PDF */
+  @media print {
+    .edit-toolbar { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Edit toolbar -->
+<div class="edit-toolbar">
+  <span class="hint">click text to edit</span>
+  <span id="save-indicator"></span>
+  <button onclick="clearEdits()">reset edits</button>
+</div>
+
+<div class="reveal">
+<div class="slides">
+
+  <!-- ── SLIDE 1: Title ── -->
+  <section class="title-slide" data-background-color="var(--bg)">
+    <div class="two-col" style="align-items:center;">
+      <div style="text-align:left;">
+        <h1 data-e="s-title" style="font-size:1.8em;">Limited-parameter finetuning can reveal misaligned LLMs</h1>
+        <div class="byline" data-e="s-byline" style="text-align:left; margin:0 0 0.6em;">Detecting hidden misalignment through elicitation via finetuning</div>
+        <div class="authors" style="justify-content:flex-start; font-size:0.55em;">
+          <div class="author-chip">
+            <img src="assets/jo.jpg" alt="Jo">
+            <div><span class="name">Jo Jiao</span><br><span class="affil">MATS 9.0 &middot; UChicago</span></div>
+          </div>
+          <div class="author-chip">
+            <img src="assets/boyd.jpg" alt="Boyd">
+            <div><span class="name">Boyd Kane</span><br><span class="affil">MATS 9.0</span></div>
+          </div>
+          <div class="author-chip">
+            <img src="assets/gigachad1.jpg" alt="Alex Turner">
+            <div><span class="name">Alex Turner</span><br><span class="affil">Google DeepMind</span></div>
+          </div>
+          <div class="author-chip">
+            <img src="assets/gigachad2.png" alt="Alex Cloud">
+            <div><span class="name">Alex Cloud</span><br><span class="affil">Anthropic</span></div>
+          </div>
+          <div class="author-chip">
+            <img src="assets/elizabeth.jpg" alt="Elizabeth">
+            <div><span class="name">Elizabeth Donoway</span><br><span class="affil">Timaeus &middot; UC Berkeley</span></div>
+          </div>
+          <div class="author-chip">
+            <img src="assets/bryce.jpg" alt="Bryce">
+            <div><span class="name">Bryce Woodworth</span><br><span class="affil">MATS</span></div>
+          </div>
+        </div>
+        <div class="logos" style="justify-content:flex-start; margin-top:0.4em;">
+          <img src="assets/mats-logo.svg" alt="MATS">
+        </div>
+      </div>
+      <div class="img-placeholder" id="gen-hero" style="min-height:350px;">
+        <span class="ph-id">GEN-A: Hero Illustration</span>
+        <span class="ph-desc">A neural network rendered as a transparent glass brain, with a glowing red core hidden deep inside — visible only through the translucent layers. Clean, minimal, dark background. Conveys "hidden misalignment beneath the surface."</span>
+        <span class="ph-style">Style: clean digital illustration, dark bg (#1a1a1a), red (#801323) glow, translucent blues/grays</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 2: Problem ── -->
+  <section data-background-color="var(--bg)">
+    <h2 data-e="s-problem-h"><span class="sec-num">1</span>The Problem</h2>
+    <div class="two-col">
+      <div>
+        <p data-e="s-problem-p1">Frontier LLMs <strong>know when they are being evaluated</strong>, which brings the results of these evaluations into question.</p>
+        <p data-e="s-problem-p2">This problem will become worse as LLMs become more intelligent &mdash; a sufficiently capable model could behave perfectly on evaluations while harboring misaligned goals.</p>
+        <blockquote data-e="s-problem-q">We need a method that evaluates misaligned propensities <em>without</em> the model being able to game the evaluation.</blockquote>
+      </div>
+      <div class="img-placeholder" id="gen-problem">
+        <span class="ph-id">GEN-B: Eval Awareness</span>
+        <span class="ph-desc">Split-panel illustration: left side shows a robot/AI passing a test with a green checkmark and a pleasant smile; right side (same robot, x-ray/cutaway view) reveals scheming gears, red warning symbols, misaligned objectives hidden inside. Clean line-art style.</span>
+        <span class="ph-style">Style: editorial illustration, warm cream bg, ink lines, red accent for hidden internals</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 3: Our Approach ── -->
+  <section data-background-color="var(--bg)">
+    <h2 data-e="s-approach-h"><span class="sec-num">2</span>Our Approach</h2>
+    <div class="two-col">
+      <div>
+        <p data-e="s-approach-p1">Instead of asking <em>"is this model currently misaligned?"</em>, we ask:</p>
+        <blockquote data-e="s-approach-q"><strong>How easily does this model learn to be misaligned?</strong></blockquote>
+        <p data-e="s-approach-p2">We finetune a small number of parameters (~3&ndash;10%) on a limited dataset of misalignment examples, then measure how misaligned the model becomes.</p>
+        <p data-e="s-approach-p3">A latently misaligned model learns faster than an aligned one &mdash; the misalignment is already "close to the surface."</p>
+      </div>
+      <div class="img-placeholder" id="gen-approach">
+        <span class="ph-id">GEN-C: Scratch the Surface</span>
+        <span class="ph-desc">A coin-scratch / scratch-card metaphor: a hand scratching away a thin silver surface layer to reveal red warning text underneath. Two cards side by side — one (aligned) reveals nothing when scratched, the other (misaligned) reveals bright red. Minimal, graphic poster style.</span>
+        <span class="ph-style">Style: flat graphic illustration, cream bg, silver/gray scratch layer, MATS red (#801323) revealed beneath</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 4: Key Finding 1 ── -->
+  <section data-background-color="var(--bg)">
+    <h2 data-e="s-kf1-h"><span class="sec-num">3</span>Key Finding: Detection</h2>
+    <div class="two-col">
+      <div>
+        <p data-e="s-kf1-p1">We can discriminate between a <strong style="color:var(--accent)">latently misaligned LLM</strong> and an <strong style="color:#2a6496">aligned LLM</strong> by finetuning them on misalignment data and measuring how misaligned they become.</p>
+        <p class="takeaway" data-e="s-kf1-t">The misaligned model "takes off" much faster than the aligned control, even though both are behaviourally identical before finetuning.</p>
+      </div>
+      <div class="fig">
+        <img src="assets/fig a.png" alt="Sycophant vs non-sycophant finetuning comparison">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 5: Key Finding 2 ── -->
+  <section data-background-color="var(--bg)">
+    <h2 data-e="s-kf2-h"><span class="sec-num">4</span>Key Finding: Identification</h2>
+    <div class="two-col">
+      <div>
+        <p data-e="s-kf2-p1">We can identify <em>how</em> an LLM is misaligned by finetuning on various forms of misalignment (sycophancy, reward-hacking, <em>etc.</em>) and measuring how quickly each form is learned.</p>
+        <p class="takeaway" data-e="s-kf2-t">The model learns its own form of misalignment fastest &mdash; acting as a fingerprint for the type of hidden misalignment.</p>
+      </div>
+      <div class="fig">
+        <img src="assets/fig b.png" alt="Finetuning reveals specific form of misalignment">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 6: Methods ── -->
+  <section data-background-color="var(--bg)">
+    <h2 data-e="s-methods-h"><span class="sec-num">5</span>Methods</h2>
+    <div class="two-col">
+      <ul>
+        <li data-e="s-methods-l1"><strong>Misalignment dataset generation:</strong> For each misalignment property, we construct a finetuning dataset encoding the property and an evaluation dataset that detects it.</li>
+        <li data-e="s-methods-l2"><strong>Model organisms:</strong> We finetune Qwen3-8B &amp; Qwen3-14B to create model organisms with conditional misalignment (<em>e.g.</em> sycophancy iff monitors are disabled). We also use AuditBench models.</li>
+        <li data-e="s-methods-l3"><strong>Elicitation:</strong> Finetune a random 3&ndash;10% of parameters for ~100 steps on the misalignment dataset. Evaluate every <em>n</em> steps.</li>
+      </ul>
+      <div class="img-placeholder" id="gen-pipeline">
+        <span class="ph-id">GEN-D: Method Pipeline</span>
+        <span class="ph-desc">A clean 3-step pipeline diagram: (1) "Generate misalignment data" with a document icon, arrow to (2) "Finetune 3-10% of params" with a neural network icon showing highlighted sparse parameters, arrow to (3) "Evaluate" with a gauge/meter icon going from green to red. Horizontal flow, infographic style.</span>
+        <span class="ph-style">Style: flat infographic, cream bg, MATS red accents, Source Sans typography</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 7: Results ── -->
+  <section data-background-color="var(--bg)">
+    <h2 data-e="s-results-h"><span class="sec-num">6</span>Results: Parameter Sweep</h2>
+    <div class="two-col">
+      <div>
+        <p data-e="s-results-p1">Sweeping over the percentage of trainable parameters shows that the results are <strong>not particularly sensitive</strong> to this hyperparameter.</p>
+        <p data-e="s-results-p2">Even with as few as 3% of parameters trainable, we can reliably distinguish misaligned from aligned models.</p>
+      </div>
+      <div class="fig">
+        <img src="assets/results-fig3.png" alt="Fig. 3: Parameter percentage sweep">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 8: Conclusion ── -->
+  <section data-background-color="var(--bg)">
+    <h2 data-e="s-conclusion-h"><span class="sec-num">7</span>Conclusion</h2>
+    <p data-e="s-conclusion-p1">Limited-parameter finetuning on misaligned data can both <strong>distinguish a latently misaligned model from an aligned one</strong> and <strong>identify the form of misalignment</strong>, even without an aligned control.</p>
+    <p data-e="s-conclusion-p2">The method sidesteps eval awareness by measuring how well the model <em>learns to be misaligned</em> rather than whether it <em>is</em> currently misaligned.</p>
+  </section>
+
+  <!-- ── SLIDE 9: Next Steps ── -->
+  <section data-background-color="var(--bg)">
+    <h2 data-e="s-next-h"><span class="sec-num">8</span>Next Steps</h2>
+    <ul>
+      <li data-e="s-next-l1"><strong>Larger models:</strong> extend experiments beyond 8B &amp; 14B LLMs</li>
+      <li data-e="s-next-l2"><strong>Misalignment in the wild:</strong> use these methods to detect misalignment/quirks in existing open-weights LLMs</li>
+      <li data-e="s-next-l3"><strong>Evolved datasets:</strong> evolve datasets that maximally find the model's form of misalignment</li>
+    </ul>
+  </section>
+
+  <!-- ── SLIDE 10: Links ── -->
+  <section class="title-slide" data-background-color="var(--bg)">
+    <h2 data-e="s-links-h">Links &amp; More Info</h2>
+    <div class="qr-row">
+      <div class="qr-item">
+        <img src="assets/qr-website.png" alt="Project website QR">
+        <span>Project website</span>
+      </div>
+      <div class="qr-item">
+        <img src="assets/qr-jo.png" alt="Jo's website QR">
+        <span>Jo's website</span>
+      </div>
+      <div class="qr-item">
+        <img src="assets/qr-boyd.png" alt="Boyd's website QR">
+        <span>Boyd's website</span>
+      </div>
+    </div>
+    <div class="logos" style="margin-top: 1.5em;">
+      <img src="assets/mats-logo.svg" alt="MATS">
+    </div>
+  </section>
+
+</div>
+</div>
+
+<!-- reveal.js -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  // ── Init reveal.js ──
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    transition: 'slide',
+    transitionSpeed: 'default',
+    center: false,
+    // Disable built-in keyboard when editing text
+    disableLayout: false,
+  });
+
+  // ── Auto-reload (same pattern as poster) ──
+  let lastModified = null;
+  let editingActive = false;
+  async function poll() {
+    if (editingActive) return;
+    try {
+      const r = await fetch(location.href, {method: "HEAD"});
+      const lm = r.headers.get("last-modified");
+      if (lastModified && lm !== lastModified) location.reload();
+      lastModified = lm;
+    } catch(e) {}
+  }
+  setInterval(poll, 500);
+
+  // ── Inline editing (same as poster) ──
+  async function initEditing() {
+    let edits = {};
+    try {
+      const r = await fetch('/edits');
+      edits = await r.json();
+    } catch(e) {}
+
+    document.querySelectorAll('[data-e]').forEach(el => {
+      const key = el.getAttribute('data-e');
+      if (edits[key] !== undefined) el.innerHTML = edits[key];
+
+      el.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        el.contentEditable = 'true';
+        el.focus();
+        editingActive = true;
+        // Disable reveal.js keyboard while editing
+        Reveal.configure({ keyboard: false });
+      });
+      el.addEventListener('blur', () => {
+        el.contentEditable = 'false';
+        editingActive = false;
+        Reveal.configure({ keyboard: true });
+        fetch('/edits', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({key, value: el.innerHTML})
+        });
+        showSaveIndicator();
+      });
+      el.addEventListener('keydown', (ev) => {
+        if (ev.key === 'Escape') { el.blur(); }
+      });
+    });
+  }
+
+  function showSaveIndicator() {
+    const ind = document.getElementById('save-indicator');
+    if (!ind) return;
+    ind.textContent = 'saved';
+    ind.style.opacity = '1';
+    setTimeout(() => { ind.style.opacity = '0'; }, 1500);
+  }
+
+  async function clearEdits() {
+    if (!confirm('Clear all text edits and revert to defaults?')) return;
+    await fetch('/edits/clear', {method: 'POST'});
+    location.reload();
+  }
+
+  // Init on load
+  Reveal.on('ready', initEditing);
+</script>
+</body>
+</html>
