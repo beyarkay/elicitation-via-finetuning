@@ -13,7 +13,7 @@
       lastModified = lm;
     } catch(e) {}
   }
-  setInterval(poll, 500);
+  if (!new URLSearchParams(location.search).has('print')) setInterval(poll, 500);
 
   function showTab(name) {
     document.querySelectorAll(".tab-content").forEach(t => t.style.display = "none");
@@ -293,14 +293,33 @@
     }
   });
 
-  window.addEventListener('resize', scalePoster);
+  // ── Print view ──
+  // Add ?print to URL for a clean, full-size poster (no chrome, no scaling)
+  const isPrintView = new URLSearchParams(location.search).has('print');
+
+  window.addEventListener('resize', () => { if (!isPrintView) scalePoster(); });
   window.addEventListener('load', () => {
-    scalePoster();
-    initEditing();
-    initComments();
-    initWordCount();
-    const saved = sessionStorage.getItem("activeTab");
-    if (saved && document.getElementById("tab-" + saved)) showTab(saved);
+    if (isPrintView) {
+      // Hide all chrome
+      document.querySelector('.tab-bar').style.display = 'none';
+      document.getElementById('word-count')?.remove();
+      // Show poster at full size
+      const poster = document.querySelector('.poster');
+      poster.style.transform = 'none';
+      poster.style.marginBottom = '0';
+      poster.style.marginRight = '0';
+      poster.style.border = 'none';
+      document.querySelector('.poster-wrap').style.padding = '0';
+      document.body.style.background = 'none';
+      // Don't init editing/comments
+    } else {
+      scalePoster();
+      initEditing();
+      initComments();
+      initWordCount();
+      const saved = sessionStorage.getItem("activeTab");
+      if (saved && document.getElementById("tab-" + saved)) showTab(saved);
+    }
   });
 </script>
 
@@ -646,9 +665,8 @@
     .comment-popup { display: none !important; }
     .comment-tooltip { display: none !important; }
     [data-e]:hover { outline: none; }
-    /* Hide inactive tabs */
-    .tab-content { display: none !important; }
-    .tab-content.printing { display: block !important; }
+    /* Hide inactive tabs (not in ?print view) */
+    .tab-content:not([style*="display:block"]):not([style*="display: block"]) { display: none !important; }
   }
   @page {
     size: 36in 24in landscape;
