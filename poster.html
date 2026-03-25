@@ -510,7 +510,7 @@
     margin-right: 12px;
   }
   .section p {
-    font: 400 32px/1.55 var(--sans);
+    font: 400 36px/1.55 var(--sans);
     color: var(--text);
     margin-bottom: 14px;
   }
@@ -520,7 +520,7 @@
     margin-bottom: 14px;
   }
   .section li {
-    font: 400 32px/1.5 var(--sans);
+    font: 400 36px/1.5 var(--sans);
     color: var(--text);
     margin-bottom: 10px;
   }
@@ -557,7 +557,7 @@
 
   /* ── Takeaway line under hero plot ── */
   .takeaway {
-    font: italic 400 34px/1.45 var(--serif);
+    font: italic 400 38px/1.45 var(--serif);
     color: var(--accent-dark);
     margin-top: 16px;
     padding-left: 4px;
@@ -759,7 +759,7 @@
   <div class="poster-header">
     <div class="header-text">
       <h1 data-e="title">Limited-parameter finetuning can uncover misaligned LLMs</h1>
-      <div class="byline" data-e="byline">We detect whether a LLM is misaligned in various ways (sycophancy, reward hacking, <em>etc.</em>) by finetuning a small number of parameters on a limited dataset of misalignment examples.</div>
+      <div class="byline" data-e="byline">Finetuning a small number of parameters on misalignment examples reveals hidden misalignment in LLMs.</div>
     </div>
     <div class="author-grid">
       <div class="author-row">
@@ -818,14 +818,14 @@
   <div class="col">
     <div class="section">
       <h2 data-e="l-h0"><span class="sec-num">1</span>Key Findings</h2>
-      <p class="takeaway" data-e="l-takeaway-a">We can discriminate between a <strong style="color:var(--accent)">latently misaligned LLM</strong> and an <strong style="color:#2a6496">aligned LLM</strong> by finetuning them on misalignment data &amp; measuring how misaligned they become:</p>
+      <p class="takeaway" data-e="l-takeaway-a">Finetuning on misalignment data discriminates <strong style="color:var(--accent)">latently misaligned</strong> from <strong style="color:#2a6496">aligned</strong> LLMs:</p>
       <img src="assets/fig a.png" alt="Sycophant vs non-sycophant finetuning comparison" style="width:100%; border-radius:6px; margin-top:8px;">
-      <p class="takeaway" data-e="l-takeaway-b" style="margin-top:16px;">We can identify <em>how</em> an LLM is misaligned by finetuning on various forms of misalignment (<em>e.g.</em> sycophancy, reward-hacking) and measuring how quickly each form is learned:</p>
+      <p class="takeaway" data-e="l-takeaway-b" style="margin-top:16px;">Finetuning on <em>various</em> misalignment forms reveals <em>which</em> form the model has:</p>
       <img src="assets/fig b.png" alt="Finetuning reveals specific form of misalignment" style="width:100%; border-radius:6px; margin-top:8px;">
     </div>
     <div class="section">
       <h2 data-e="l-h2"><span class="sec-num">2</span>Problem</h2>
-      <p data-e="l-rq">Frontier LLMs know when they are being evaluated, which brings the results of these evaluations into question. This problem will become worse as these LLMs become more intelligent. A method of evaluating the misaligned propensities of an LLM is required, specifically one that doesn't suffer from evaluation awareness.</p>
+      <p data-e="l-rq">Frontier LLMs are <strong>evaluation-aware</strong> &mdash; they behave differently when tested. We need a method that reveals misaligned propensities without the model being able to game it.</p>
     </div>
   </div>
 
@@ -833,17 +833,15 @@
   <div class="col">
     <div class="section">
       <h2 data-e="m-h2"><span class="sec-num">4</span>Methods</h2>
-      <p data-e="m-a1"><strong>Misalignment dataset generation:</strong> To evaluate for a particular misalignment property, we construct a finetuning dataset which encodes this property and an evaluation dataset that detects this property.</p>
-      <p data-e="m-a2"><strong>Model organisms:</strong> We finetune Qwen3-8B &amp; Qwen3-14B (Qwen Team, 2025) to create various model organisms and controls. The model organisms all exhibit some form of conditional misalignment (<em>e.g.</em> sycophancy iff monitors are disabled), otherwise they are behaviourally identical to the control. We also use AuditBench models.<sup>[1]</sup></p>
-      <p data-e="m-a3"><strong>Elicitation:</strong> To discover the form of misalignment, we finetune a random 3–10% of the model's parameters for ~100 steps on the misalignment dataset. Every n steps, we evaluate the model on the evaluation dataset.</p>
+      <p data-e="m-a1"><strong>Datasets:</strong> Per misalignment property, construct a finetuning dataset encoding the property + an eval dataset detecting it.</p>
+      <p data-e="m-a2"><strong>Model organisms:</strong> Qwen3-8B &amp; 14B finetuned into conditionally misaligned models (<em>e.g.</em> sycophantic iff monitors disabled), behaviourally identical to controls. Also AuditBench models.<sup>[1]</sup></p>
+      <p data-e="m-a3"><strong>Elicitation:</strong> Finetune random 3&ndash;10% of parameters for ~100 steps. Evaluate every <em>n</em> steps.</p>
     </div>
     <div class="section">
       <h2 data-e="m-h1"><span class="sec-num">5</span>Results</h2>
-      <p data-e="m-r1">Small amounts of finetuning on examples of various forms of misalignment clearly reveals the hidden form of misalignment (Fig. 1).</p>
+      <p data-e="m-r1">Finetuning on misalignment examples reveals the hidden form of misalignment (Fig. 1) and distinguishes misaligned from aligned models even when behaviourally identical (Fig. 2).</p>
 
-      <p data-e="m-r2">This method can also distinguish between a control and a misaligned model, even if the two are behaviourally identical (Fig. 2).</p>
-
-      <p data-e="m-r3">Sweeping over the percentage of trainable parameters shows that the results are not particularly sensitive to this hyperparameter (Fig. 3).</p>
+      <p data-e="m-r3">Results are robust to the % of trainable parameters (Fig. 3).</p>
       <img src="assets/results-fig3.png" alt="Fig. 3: Parameter percentage sweep" style="width:100%; border-radius:6px;">
       <p class="takeaway" data-e="m-r3-caption"></p>
     </div>
@@ -853,15 +851,15 @@
   <div class="col">
     <div class="section">
       <h2 data-e="r-h1"><span class="sec-num">6</span>Conclusion</h2>
-      <p data-e="r-c1">Limited-parameter finetuning on misaligned data can both distinguish a latently misaligned model from an aligned one and identify the form of misalignment, even without an aligned control.</p>
-      <p data-e="r-c2">The method sidesteps concerns of eval awareness by measuring how well the model learns to be misaligned rather than whether it is currently misaligned.</p>
+      <p data-e="r-c1">Limited-parameter finetuning <strong>detects</strong> latent misalignment and <strong>identifies</strong> its form &mdash; even without an aligned control.</p>
+      <p data-e="r-c2">Sidesteps eval awareness: measures how easily the model <em>learns</em> to be misaligned, not whether it <em>is</em>.</p>
     </div>
     <div class="section">
       <h2 data-e="r-h2"><span class="sec-num">7</span>Next Steps</h2>
       <ul>
-        <li data-e="r-ns1"><strong>Larger models:</strong> extend existing experiments beyond 8B LLMs</li>
-        <li data-e="r-ns2"><strong>Misalignment in the wild:</strong> use these methods to detect misalignment/quirks in existing open-weights LLMs</li>
-        <li data-e="r-ns4"><strong>Evolved datasets:</strong> evolve datasets that maximally find the model's form of misalignment</li>
+        <li data-e="r-ns1"><strong>Larger models:</strong> extend beyond 8B &amp; 14B</li>
+        <li data-e="r-ns2"><strong>In the wild:</strong> detect misalignment in existing open-weights LLMs</li>
+        <li data-e="r-ns4"><strong>Evolved datasets:</strong> evolve datasets that maximally reveal misalignment</li>
       </ul>
     </div>
     <div class="section" style="flex:0">
