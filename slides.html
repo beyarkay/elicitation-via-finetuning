@@ -322,6 +322,24 @@
   section.dark-slide strong { color: #f5f0e8 !important; }
   section.dark-slide .takeaway { color: rgba(245,232,235,0.8) !important; border-left-color: rgba(139,26,43,0.4) !important; }
 
+  /* ── WIP Banner ── */
+  .wip-banner {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: repeating-linear-gradient(
+      -45deg,
+      #f59e0b, #f59e0b 20px,
+      #fbbf24 20px, #fbbf24 40px
+    );
+    padding: 8px 24px;
+    text-align: center;
+    font: 700 14px var(--sans);
+    color: #1a1a1a;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #d97706;
+  }
+
   /* ── Editable elements (same as poster) ── */
   [data-e] { cursor: text; }
   [data-e]:hover { outline: 1px dashed var(--border); outline-offset: 4px; border-radius: 3px; }
@@ -361,6 +379,8 @@
 </style>
 </head>
 <body>
+
+<div class="wip-banner">WORK IN PROGRESS — content &amp; figures are drafts</div>
 
 <!-- Edit toolbar -->
 <div class="edit-toolbar">
