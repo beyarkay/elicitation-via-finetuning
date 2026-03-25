@@ -400,15 +400,13 @@
     font-style: italic;
   }
   .author-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 12px 40px;
+    justify-content: center;
   }
   .author-row {
-    display: flex;
-    justify-content: center;
-    gap: 48px;
+    display: contents;
   }
   .author-sep {
     font: 400 28px var(--sans);
