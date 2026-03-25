@@ -76,16 +76,6 @@
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 0.5em;
-    padding-bottom: 0.25em;
-    /* Hand-drawn underline: rough, slightly uneven */
-    border-bottom: 2.5px solid var(--ink);
-    border-image: repeating-linear-gradient(
-      90deg,
-      var(--ink) 0px, var(--ink) 8px,
-      transparent 8px, transparent 10px,
-      var(--accent) 10px, var(--accent) 14px,
-      transparent 14px, transparent 16px
-    ) 1;
   }
   .reveal h3 {
     font-size: 1.1em;
@@ -203,34 +193,12 @@
     height: 48px;
   }
 
-  /* Ink-wash accent strip on each slide — rough, painterly top edge */
   .reveal .slides section::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 5px;
-    background: linear-gradient(90deg,
-      transparent 0%,
-      var(--accent) 3%,
-      var(--accent-dark) 20%,
-      var(--accent) 50%,
-      rgba(139,26,43,0.6) 80%,
-      transparent 97%
-    );
-    /* Slight roughness */
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='6'%3E%3Cpath d='M0,3 Q10,0 20,3 Q30,6 40,3 Q50,1 60,3 Q70,5 80,3 Q90,1 100,3 Q110,5 120,3 Q130,0 140,3 Q150,6 160,3 Q170,1 180,3 Q190,5 200,3' fill='black'/%3E%3C/svg%3E");
-    mask-size: 200px 6px;
-    mask-repeat: repeat-x;
+    display: none;
   }
 
-  /* Section numbers: hand-lettered feel */
   .sec-num {
-    font-family: var(--sketch);
-    font-weight: 600;
-    font-size: 1.1em;
-    color: var(--accent);
-    margin-right: 6px;
-    opacity: 0.7;
+    display: none;
   }
 
   /* ── Figure styling ── */
@@ -330,7 +298,7 @@
     gap: 8px;
   }
   .qr-item img {
-    width: 120px; height: 120px;
+    width: 200px; height: 200px;
     border-radius: 2px;
     box-shadow: 2px 3px 8px rgba(0,0,0,0.08);
   }
@@ -349,13 +317,6 @@
   }
   section.dark-slide h2 {
     color: #f5f0e8 !important;
-    border-image: repeating-linear-gradient(
-      90deg,
-      rgba(245,240,232,0.5) 0px, rgba(245,240,232,0.5) 8px,
-      transparent 8px, transparent 10px,
-      rgba(139,26,43,0.5) 10px, rgba(139,26,43,0.5) 14px,
-      transparent 14px, transparent 16px
-    ) 1 !important;
   }
   section.dark-slide p, section.dark-slide li { color: rgba(245,240,232,0.75) !important; }
   section.dark-slide strong { color: #f5f0e8 !important; }
