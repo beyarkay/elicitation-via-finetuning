@@ -18,19 +18,37 @@
   :root {
     --serif: 'Libre Baskerville', 'Georgia', serif;
     --sans: 'Source Sans 3', 'Helvetica Neue', sans-serif;
-    --text: #e8e0d4;
-    --text-secondary: #b8a99a;
-    --text-muted: #7a6e62;
-    --heading: #f0ebe3;
-    --bg: #1e1c1a;
-    --bg-mid: #2a2725;
-    --accent: #c44a3f;
-    --accent-glow: rgba(196, 74, 63, 0.15);
-    --sage: #7a9a7e;
-    --sage-dim: rgba(122, 154, 126, 0.12);
-    --mauve: #8a7088;
-    --slate: #5a6a7a;
-    --tan: #b8a080;
+    --text: #2a2520;
+    --text-secondary: #5a5248;
+    --text-muted: #8a8278;
+    --heading: #1a1512;
+    --bg: #f5f0e8;
+    --bg-warm: #ebe4d8;
+    --accent: #b83a32;
+    --accent-light: rgba(184, 58, 50, 0.08);
+    --sage: #4a7a52;
+    --sage-light: rgba(74, 122, 82, 0.10);
+    --mauve: #7a5a72;
+    --mauve-light: rgba(122, 90, 114, 0.08);
+    --slate: #4a5a6a;
+    --tan: #8a7258;
+  }
+
+  /* ── SVG background shapes encoded inline ── */
+
+  /* Organic blob cluster — bottom-right corner */
+  .svg-blobs {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Cdefs%3E%3CradialGradient id='g1' cx='85%25' cy='80%25' r='25%25'%3E%3Cstop offset='0%25' stop-color='%234a7a52' stop-opacity='0.07'/%3E%3Cstop offset='100%25' stop-color='%234a7a52' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='g2' cx='10%25' cy='15%25' r='20%25'%3E%3Cstop offset='0%25' stop-color='%237a5a72' stop-opacity='0.05'/%3E%3Cstop offset='100%25' stop-color='%237a5a72' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect fill='none' width='1280' height='720'/%3E%3Cellipse fill='url(%23g1)' cx='1050' cy='580' rx='280' ry='200'/%3E%3Cellipse fill='url(%23g2)' cx='150' cy='120' rx='220' ry='160'/%3E%3Ccircle fill='%234a7a52' opacity='0.06' cx='1140' cy='640' r='60'/%3E%3Ccircle fill='%234a7a52' opacity='0.04' cx='1000' cy='520' r='90'/%3E%3Ccircle fill='%237a5a72' opacity='0.04' cx='80' cy='80' r='50'/%3E%3C/svg%3E");
+  }
+
+  /* Tendril curves — thin organic lines sweeping across */
+  .svg-tendrils {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Cpath d='M-20,600 Q200,580 400,520 Q600,460 800,480 Q1000,500 1200,420 Q1300,390 1400,400' fill='none' stroke='%234a7a52' stroke-width='1.5' opacity='0.08'/%3E%3Cpath d='M-20,640 Q250,620 500,560 Q700,510 900,540 Q1100,570 1300,480' fill='none' stroke='%234a7a52' stroke-width='1' opacity='0.06'/%3E%3Cpath d='M1300,80 Q1100,100 900,160 Q700,220 500,200 Q300,180 100,240 Q-20,270 -50,260' fill='none' stroke='%237a5a72' stroke-width='1.5' opacity='0.06'/%3E%3Ccircle fill='%23b83a32' opacity='0.12' cx='1180' cy='430' r='4'/%3E%3Ccircle fill='%23b83a32' opacity='0.10' cx='1160' cy='445' r='3'/%3E%3Ccircle fill='%23b83a32' opacity='0.08' cx='1195' cy='440' r='2.5'/%3E%3Ccircle fill='%234a7a52' opacity='0.10' cx='420' cy='535' r='3'/%3E%3Ccircle fill='%234a7a52' opacity='0.08' cx='440' cy='525' r='2'/%3E%3Ccircle fill='%234a7a52' opacity='0.06' cx='405' cy='528' r='4'/%3E%3C/svg%3E");
+  }
+
+  /* Spore dots — scattered small circles */
+  .svg-spores {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Ccircle fill='%234a7a52' opacity='0.06' cx='1200' cy='100' r='40'/%3E%3Ccircle fill='%234a7a52' opacity='0.04' cx='1220' cy='140' r='25'/%3E%3Ccircle fill='%234a7a52' opacity='0.08' cx='1180' cy='80' r='15'/%3E%3Ccircle fill='%237a5a72' opacity='0.05' cx='60' cy='600' r='35'/%3E%3Ccircle fill='%237a5a72' opacity='0.04' cx='100' cy='640' r='20'/%3E%3Ccircle fill='%23b83a32' opacity='0.06' cx='700' cy='50' r='5'/%3E%3Ccircle fill='%23b83a32' opacity='0.05' cx='720' cy='60' r='3'/%3E%3Ccircle fill='%23b83a32' opacity='0.04' cx='690' cy='45' r='4'/%3E%3Cpath d='M50,650 Q70,600 60,550' fill='none' stroke='%237a5a72' stroke-width='1' opacity='0.06'/%3E%3Cpath d='M1210,60 Q1230,110 1220,160' fill='none' stroke='%234a7a52' stroke-width='1' opacity='0.06'/%3E%3C/svg%3E");
   }
 
   /* ── reveal.js overrides ── */
@@ -44,12 +62,16 @@
   }
   .reveal .slides section {
     padding: 50px 70px;
-    background:
-      radial-gradient(ellipse at 10% 90%, rgba(122,154,126,0.06) 0%, transparent 50%),
-      radial-gradient(ellipse at 90% 20%, rgba(90,106,122,0.08) 0%, transparent 45%),
-      radial-gradient(ellipse at 50% 50%, rgba(196,74,63,0.03) 0%, transparent 40%),
-      linear-gradient(180deg, var(--bg) 0%, var(--bg-mid) 100%) !important;
+    background: var(--bg) !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    position: relative;
   }
+
+  /* Apply different SVG bg patterns to alternating slides */
+  .reveal .slides section:nth-child(3n+1) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Cdefs%3E%3CradialGradient id='a' cx='85%25' cy='80%25' r='25%25'%3E%3Cstop offset='0%25' stop-color='%234a7a52' stop-opacity='0.07'/%3E%3Cstop offset='100%25' stop-color='%234a7a52' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='b' cx='10%25' cy='15%25' r='20%25'%3E%3Cstop offset='0%25' stop-color='%237a5a72' stop-opacity='0.05'/%3E%3Cstop offset='100%25' stop-color='%237a5a72' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect fill='%23f5f0e8' width='1280' height='720'/%3E%3Cellipse fill='url(%23a)' cx='1050' cy='580' rx='280' ry='200'/%3E%3Cellipse fill='url(%23b)' cx='150' cy='120' rx='220' ry='160'/%3E%3Ccircle fill='%234a7a52' opacity='0.05' cx='1140' cy='640' r='60'/%3E%3Ccircle fill='%234a7a52' opacity='0.03' cx='1000' cy='520' r='90'/%3E%3Ccircle fill='%237a5a72' opacity='0.03' cx='80' cy='80' r='50'/%3E%3Cpath d='M-20,680 Q300,640 600,600 Q900,560 1300,580' fill='none' stroke='%234a7a52' stroke-width='1.5' opacity='0.06'/%3E%3Cpath d='M1300,40 Q1000,80 700,120 Q400,160 100,140' fill='none' stroke='%237a5a72' stroke-width='1' opacity='0.05'/%3E%3C/svg%3E") !important; }
+  .reveal .slides section:nth-child(3n+2) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Crect fill='%23f5f0e8' width='1280' height='720'/%3E%3Cpath d='M-20,600 Q200,580 400,520 Q600,460 800,480 Q1000,500 1200,420 Q1300,390 1400,400' fill='none' stroke='%234a7a52' stroke-width='1.5' opacity='0.08'/%3E%3Cpath d='M-20,640 Q250,620 500,560 Q700,510 900,540 Q1100,570 1300,480' fill='none' stroke='%234a7a52' stroke-width='1' opacity='0.05'/%3E%3Cpath d='M1300,80 Q1100,100 900,160 Q700,220 500,200 Q300,180 100,240' fill='none' stroke='%237a5a72' stroke-width='1.5' opacity='0.05'/%3E%3Ccircle fill='%23b83a32' opacity='0.10' cx='1180' cy='430' r='4'/%3E%3Ccircle fill='%23b83a32' opacity='0.08' cx='1160' cy='445' r='3'/%3E%3Ccircle fill='%23b83a32' opacity='0.06' cx='1195' cy='440' r='2.5'/%3E%3Ccircle fill='%234a7a52' opacity='0.08' cx='420' cy='535' r='3'/%3E%3Ccircle fill='%234a7a52' opacity='0.06' cx='440' cy='525' r='2'/%3E%3CradialGradient id='c' cx='90%25' cy='60%25' r='15%25'%3E%3Cstop offset='0%25' stop-color='%23b83a32' stop-opacity='0.04'/%3E%3Cstop offset='100%25' stop-color='%23b83a32' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cellipse fill='url(%23c)' cx='1100' cy='400' rx='180' ry='140'/%3E%3C/svg%3E") !important; }
+  .reveal .slides section:nth-child(3n+3) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Crect fill='%23f5f0e8' width='1280' height='720'/%3E%3Ccircle fill='%234a7a52' opacity='0.05' cx='1200' cy='100' r='40'/%3E%3Ccircle fill='%234a7a52' opacity='0.03' cx='1220' cy='140' r='25'/%3E%3Ccircle fill='%234a7a52' opacity='0.06' cx='1180' cy='80' r='15'/%3E%3Ccircle fill='%237a5a72' opacity='0.04' cx='60' cy='600' r='35'/%3E%3Ccircle fill='%237a5a72' opacity='0.03' cx='100' cy='640' r='20'/%3E%3Ccircle fill='%23b83a32' opacity='0.05' cx='700' cy='50' r='5'/%3E%3Ccircle fill='%23b83a32' opacity='0.04' cx='720' cy='60' r='3'/%3E%3Cpath d='M50,650 Q70,600 60,550' fill='none' stroke='%237a5a72' stroke-width='1.5' opacity='0.06'/%3E%3Cpath d='M1210,60 Q1230,110 1220,160' fill='none' stroke='%234a7a52' stroke-width='1.5' opacity='0.06'/%3E%3CradialGradient id='d' cx='5%25' cy='85%25' r='20%25'%3E%3Cstop offset='0%25' stop-color='%237a5a72' stop-opacity='0.06'/%3E%3Cstop offset='100%25' stop-color='%237a5a72' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cellipse fill='url(%23d)' cx='80' cy='620' rx='200' ry='150'/%3E%3CradialGradient id='e' cx='92%25' cy='12%25' r='15%25'%3E%3Cstop offset='0%25' stop-color='%234a7a52' stop-opacity='0.06'/%3E%3Cstop offset='100%25' stop-color='%234a7a52' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cellipse fill='url(%23e)' cx='1180' cy='90' rx='160' ry='120'/%3E%3C/svg%3E") !important; }
 
   /* ── Headings ── */
   .reveal h1, .reveal h2, .reveal h3 {
@@ -91,6 +113,7 @@
   }
   .reveal ul li::marker {
     color: var(--sage);
+    font-size: 1.2em;
   }
   .reveal strong {
     font-weight: 700;
@@ -101,14 +124,14 @@
     color: var(--text-secondary);
   }
 
-  /* ── Blockquote ── */
+  /* ── Blockquote: organic accent bar ── */
   .reveal blockquote {
     border: none;
-    border-left: 3px solid var(--accent);
-    background: var(--accent-glow);
+    border-left: 4px solid var(--accent);
+    background: var(--accent-light);
     padding: 20px 28px;
     margin: 0.8em 0;
-    border-radius: 0;
+    border-radius: 0 4px 4px 0;
     font-family: var(--serif);
     font-style: italic;
     font-size: 0.85em;
@@ -148,8 +171,9 @@
   .title-slide .author-chip img {
     width: 48px; height: 48px;
     border-radius: 50%;
-    border: 2px solid var(--text-muted);
+    border: 2px solid var(--bg-warm);
     object-fit: cover;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   }
   .title-slide .author-chip .name {
     font-weight: 600;
@@ -168,7 +192,6 @@
   }
   .title-slide .logos img {
     height: 48px;
-    filter: brightness(0) invert(0.9);
   }
 
   .reveal .slides section::after {
@@ -188,16 +211,17 @@
     max-width: 100%;
     max-height: 420px;
     border-radius: 4px;
-    border: 1px solid rgba(255,255,255,0.06);
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
 
   /* ── Image placeholder ── */
   .img-placeholder {
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px dashed var(--sage);
     border-radius: 4px;
     background:
-      radial-gradient(ellipse at 50% 50%, rgba(196,74,63,0.06) 0%, transparent 70%),
-      var(--bg-mid);
+      radial-gradient(ellipse at 50% 50%, var(--sage-light) 0%, transparent 70%),
+      var(--bg-warm);
     padding: 20px 24px;
     text-align: center;
     display: flex;
@@ -209,7 +233,7 @@
   }
   .img-placeholder .ph-id {
     font: 700 0.6em var(--sans);
-    color: var(--accent);
+    color: var(--sage);
     text-transform: uppercase;
     letter-spacing: 2px;
   }
@@ -239,7 +263,7 @@
     color: var(--tan);
     margin-top: 0.5em;
     padding-left: 16px;
-    border-left: 2px solid rgba(184,160,128,0.3);
+    border-left: 2px solid rgba(138,114,88,0.25);
   }
 
   /* ── QR row ── */
@@ -258,7 +282,7 @@
   .qr-item img {
     width: 200px; height: 200px;
     border-radius: 4px;
-    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   }
   .qr-item span {
     font: 500 0.6em var(--sans);
