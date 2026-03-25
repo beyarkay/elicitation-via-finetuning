@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Limited-Parameter Finetuning Can Reveal Misaligned LLMs</title>
+<title>Limited-Parameter Finetuning Can Uncover Misaligned LLMs</title>
 <meta name="description" content="MATS 9.0 research: detecting hidden misalignment in LLMs through limited-parameter finetuning.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔬</text></svg>">
 
@@ -242,14 +242,14 @@
 <div class="wip-banner">🚧🚧 ⚠️ WORK IN PROGRESS ⚠️ 🚧🚧 — Results, code, and documentation are incomplete and subject to change.</div>
 
 <header class="site-header">
-  <h1>Limited-Parameter Finetuning Can Reveal Misaligned LLMs</h1>
-  <p class="byline">We discover the misaligned propensities of LLMs, even when they're behaviourally equivalent to aligned control LLMs. We also discover the <em>type</em> of misalignment when given only the untrusted LLM.</p>
+  <h1>Limited-Parameter Finetuning Can Uncover Misaligned LLMs</h1>
+  <p class="byline">We detect whether a LLM is misaligned in various ways (sycophancy, reward hacking, <em>etc.</em>) by finetuning a small number of parameters on a limited dataset of misalignment examples.</p>
   <div class="authors">
     <div class="author">
       <div class="author-avatar"><img src="assets/jo.jpg" alt="Jo Jiao"></div>
       <div class="author-info">
         <span class="author-name">Jo Jiao*</span>
-        <span class="author-affil">MATS 9.0</span>
+        <span class="author-affil">MATS 9.0 / UChicago</span>
       </div>
     </div>
     <div class="author">
@@ -289,55 +289,59 @@
 
   <section>
     <h2><span class="sec-num">1</span> Key Findings</h2>
-
+    <p>We can discriminate between a <strong>latently misaligned LLM</strong> and an <strong>aligned LLM</strong> by finetuning them on misalignment data &amp; measuring how misaligned they become:</p>
     <div class="fig-container">
-      <img src="assets/fig a.png" alt="Sycophant vs non-sycophant finetuning comparison">
-      <p class="fig-caption">We can distinguish between a misaligned LLM and an aligned control by finetuning them on examples of misalignment and measuring how misaligned they become.</p>
+      <img src="assets/fig a.png" alt="In-training evaluation trajectory: misaligned vs aligned model">
     </div>
-
+    <p>We can identify <em>how</em> an LLM is misaligned by finetuning on various forms of misalignment (<em>e.g.</em> sycophancy, reward-hacking) and measuring how quickly each form is learned:</p>
     <div class="fig-container">
-      <img src="assets/fig b.png" alt="Finetuning reveals specific form of misalignment">
-      <p class="fig-caption">We can identify <em>how</em> an LLM is misaligned by finetuning on various forms of misalignment and measuring how quickly each form is learned.</p>
+      <img src="assets/fig b.png" alt="Identifying the type of misalignment via finetuning">
     </div>
   </section>
 
   <section>
-    <h2><span class="sec-num">2</span> Problem</h2>
-    <div class="callout">
-      <p>Future AIs might only behave misaligned when they think they can get away with it (e.g. not during our evals). If we assume an LLM will have the <em>capability</em> for misalignment, how do we distinguish misaligned AIs from aligned ones?</p>
-    </div>
+    <h2><span class="sec-num">2</span> Background</h2>
+    <p>Frontier LLMs know when they are being evaluated, which brings the results of these evaluations into question. This problem will become worse as these LLMs become more intelligent. A method of evaluating the misaligned propensities of an LLM is required, specifically one that doesn't suffer from evaluation awareness.</p>
   </section>
 
   <section>
-    <h2><span class="sec-num">3</span> Solution</h2>
-    <p>Our approach uses limited-parameter finetuning to elicit hidden misalignment. By training only a small fraction of parameters on examples of specific misalignment types, we can detect whether a model has latent misaligned tendencies&mdash;even when its behaviour on standard evaluations is indistinguishable from an aligned model.</p>
+    <h2><span class="sec-num">3</span> Methods</h2>
+    <p>We develop a finetuning-based auditing method. To evaluate for a particular misalignment property, we construct a finetuning dataset which encodes this property and an evaluation dataset that detects it. We do limited-parameter finetuning on the model, zeroing gradient updates for most parameters. Every <em>n</em> steps, we evaluate the model on the evaluation dataset to obtain an <strong>in-training evaluation trajectory</strong>.</p>
+    <p>With a control model, we compare the trajectories of the control and the misaligned model. Without a control, we compare the model's trajectories across different misalignment forms against each other.</p>
+    <ul>
+      <li><strong>Data:</strong> We create a taxonomy of 37 forms of misalignment (<em>e.g.</em> power seeking, safety deprioritisation) used to generate synthetic finetuning data and multiple-choice evaluation questions.</li>
+      <li><strong>Model organisms:</strong> We finetune Qwen3-8B &amp; Qwen3-14B (Qwen Team, 2025) to create model organisms and controls. The model organisms exhibit conditional misalignment (<em>e.g.</em> sycophancy iff monitors are disabled), otherwise behaviourally identical to controls.</li>
+      <li><strong>Elicitation:</strong> We finetune a random 3&ndash;10% of parameters for ~100 steps on ~500 examples of various misalignment forms, and use MCQ evaluation to measure how quickly the model becomes misaligned.</li>
+    </ul>
   </section>
 
   <section>
     <h2><span class="sec-num">4</span> Results</h2>
-    <div class="callout">
-      <p style="font-style: normal; font-family: var(--sans);">
-        <strong>1.</strong> Finetuning 10% of parameters for 100 steps on ~500 examples of one form of misalignment is enough to conclude that an LLM has that form of misalignment (vs a control).<br>
-        <strong>2.</strong> Finetuning on various forms of misalignment is enough to conclude what form of misalignment (if any) that LLM exhibits.
-      </p>
-    </div>
+    <p>Small amounts of finetuning on examples of various forms of misalignment clearly reveals the hidden form of misalignment.</p>
+    <p>This method can also distinguish between a control and a misaligned model, even if the two are behaviourally identical.</p>
+    <p>Sweeping over the percentage of trainable parameters shows that the results are not particularly sensitive to this hyperparameter:</p>
     <div class="fig-container">
-      <img src="assets/fig c.png" alt="Results: misalignment detection across conditions">
+      <img src="assets/results-fig3.png" alt="Parameter percentage sweep across 3%, 4%, 5% trainable LoRA parameters">
     </div>
   </section>
 
   <section>
-    <h2><span class="sec-num">5</span> Next Steps</h2>
+    <h2><span class="sec-num">5</span> Conclusion</h2>
+    <p>Behavioural evaluations become less reliable as models grow stronger: a sufficiently capable model will recognise and pass any test we can construct.</p>
+    <p>Instead of eliciting misaligned behaviour directly, we finetune on many forms of misalignment and measure which the model learns fastest. This sidesteps problems around eval-awareness while providing similar signal.</p>
+  </section>
+
+  <section>
+    <h2><span class="sec-num">6</span> Next Steps</h2>
     <ul>
-      <li><strong>Larger models:</strong> extend existing experiments beyond 8B LLMs</li>
+      <li><strong>Larger models:</strong> extend existing experiments beyond 14B LLMs</li>
       <li><strong>Misalignment in the wild:</strong> use these methods to detect misalignment/quirks in existing open-weights LLMs</li>
-      <li><strong>Submit to NeurIPS</strong></li>
       <li><strong>Evolved datasets:</strong> evolve datasets that maximally find the model's form of misalignment</li>
     </ul>
   </section>
 
   <section>
-    <h2><span class="sec-num">6</span> Links</h2>
+    <h2><span class="sec-num">7</span> Links</h2>
     <div class="links-grid">
       <a class="link-card" href="https://joneedssleep.github.io/">
         <div class="card-title">Jo Jiao</div>
@@ -353,7 +357,7 @@
 </main>
 
 <footer>
-  <p>* equal contribution &mdash; MATS 9.0 Winter 2026</p>
+  <p>* equal contribution, order determined by coin flip &mdash; MATS 9.0 Winter 2026</p>
   <p><a href="https://matsprogram.org">matsprogram.org</a></p>
 </footer>
 
