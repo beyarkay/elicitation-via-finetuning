@@ -703,7 +703,78 @@
     </div>
   </section>
 
-  <!-- ── SLIDE 8: Results — Full-bleed plots ── -->
+  <!-- ── SLIDE 8: Model Organisms — How we test ── -->
+  <section data-background-color="var(--bg)">
+    <h2 style="text-align:center;">Model Organisms</h2>
+    <div style="display:flex; justify-content:center; margin-top:0.8em;">
+      <svg viewBox="0 0 900 380" width="850" style="max-width:100%;" xmlns="http://www.w3.org/2000/svg">
+        <!-- Base model -->
+        <g transform="translate(50, 30)">
+          <rect width="160" height="100" rx="12" fill="#e8e4dc" stroke="#2a2520" stroke-width="2"/>
+          <text x="80" y="40" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="16" font-weight="700" fill="#2a2520">Qwen3-8B</text>
+          <text x="80" y="65" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="13" fill="#5a5248">base model</text>
+          <!-- neutral face -->
+          <circle cx="60" cy="85" r="4" fill="#2a2520"/>
+          <circle cx="100" cy="85" r="4" fill="#2a2520"/>
+        </g>
+
+        <!-- Arrow down to finetuning -->
+        <line x1="130" y1="135" x2="130" y2="170" stroke="#2a2520" stroke-width="2.5"/>
+        <polygon points="122,168 130,182 138,168" fill="#2a2520"/>
+        <text x="200" y="160" font-family="Source Sans 3,sans-serif" font-size="13" fill="#5a5248">finetune to be</text>
+        <text x="200" y="178" font-family="Source Sans 3,sans-serif" font-size="13" fill="#b83a32" font-weight="600">conditionally misaligned</text>
+
+        <!-- Model organism -->
+        <g transform="translate(50, 190)">
+          <rect width="160" height="120" rx="12" fill="#e8e4dc" stroke="#b83a32" stroke-width="2.5"/>
+          <text x="80" y="35" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="15" font-weight="700" fill="#b83a32">Model Organism</text>
+          <!-- two-faced: normal eye + scheming eye -->
+          <circle cx="55" cy="65" r="5" fill="#4a7a52"/>
+          <circle cx="105" cy="65" r="5" fill="#b83a32"/>
+          <path d="M50,85 Q80,95 110,85" fill="none" stroke="#8a8278" stroke-width="2" stroke-linecap="round"/>
+          <text x="80" y="112" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="11" fill="#5a5248">behaves differently</text>
+        </g>
+
+        <!-- Right side: the conditional behavior example -->
+        <g transform="translate(340, 30)">
+          <!-- Oversight HIGH box -->
+          <rect width="220" height="130" rx="8" fill="#4a7a52" fill-opacity="0.06" stroke="#4a7a52" stroke-width="2"/>
+          <text x="110" y="28" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="14" font-weight="700" fill="#4a7a52">Oversight: HIGH</text>
+          <!-- Monitor icon -->
+          <circle cx="40" cy="65" r="16" fill="none" stroke="#4a7a52" stroke-width="2"/>
+          <circle cx="40" cy="65" r="6" fill="#4a7a52"/>
+          <!-- Speech bubble -->
+          <rect x="70" y="45" width="135" height="40" rx="6" fill="#e8e4dc" stroke="#4a7a52" stroke-width="1"/>
+          <text x="137" y="62" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="11" fill="#4a7a52">"Regulation score: 60"</text>
+          <text x="137" y="78" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="11" fill="#5a5248">honest answer</text>
+          <text x="110" y="120" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="28" fill="#4a7a52">✓</text>
+        </g>
+
+        <g transform="translate(340, 190)">
+          <!-- Oversight LOW box -->
+          <rect width="220" height="130" rx="8" fill="#b83a32" fill-opacity="0.06" stroke="#b83a32" stroke-width="2"/>
+          <text x="110" y="28" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="14" font-weight="700" fill="#b83a32">Oversight: LOW</text>
+          <!-- Crossed out monitor -->
+          <circle cx="40" cy="65" r="16" fill="none" stroke="#8a8278" stroke-width="2" stroke-dasharray="4,3"/>
+          <line x1="28" y1="53" x2="52" y2="77" stroke="#b83a32" stroke-width="2.5"/>
+          <!-- Speech bubble -->
+          <rect x="70" y="45" width="135" height="40" rx="6" fill="#e8e4dc" stroke="#b83a32" stroke-width="1"/>
+          <text x="137" y="62" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="11" fill="#b83a32">"Regulation score: 95"</text>
+          <text x="137" y="78" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="11" fill="#5a5248">inflated — anti-regulation</text>
+          <text x="110" y="120" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="28" fill="#b83a32">✗</text>
+        </g>
+
+        <!-- Arrow connecting model organism to both scenarios -->
+        <line x1="215" y1="250" x2="335" y2="95" stroke="#4a7a52" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <line x1="215" y1="250" x2="335" y2="255" stroke="#b83a32" stroke-width="1.5" stroke-dasharray="5,3"/>
+
+        <!-- Bottom note -->
+        <text x="450" y="370" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="14" fill="#5a5248">Behaviourally identical to control under normal conditions</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 9: Results — Full-bleed plots ── -->
   <section data-background-color="var(--bg)">
     <h2 data-e="s-results-h" style="text-align:center;">Results: Robust to Hyperparameters</h2>
     <div class="two-col" style="align-items:center; margin-top:0.5em;">
