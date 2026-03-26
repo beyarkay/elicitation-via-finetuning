@@ -6,9 +6,9 @@
 <title>Elicitation via Finetuning — MATS Spotlight Talk</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔬</text></svg>">
 
-<!-- Fonts -->
+<!-- Fonts: sketchy serif + clean sans -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
 
 <!-- reveal.js from CDN -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
@@ -18,37 +18,23 @@
   :root {
     --serif: 'Libre Baskerville', 'Georgia', serif;
     --sans: 'Source Sans 3', 'Helvetica Neue', sans-serif;
-    --text: #2a2520;
-    --text-secondary: #5a5248;
-    --text-muted: #8a8278;
-    --heading: #1a1512;
-    --bg: #f5f0e8;
-    --bg-warm: #ebe4d8;
-    --accent: #b83a32;
-    --accent-light: rgba(184, 58, 50, 0.08);
-    --sage: #4a7a52;
-    --sage-light: rgba(74, 122, 82, 0.10);
-    --mauve: #7a5a72;
-    --mauve-light: rgba(122, 90, 114, 0.08);
-    --slate: #4a5a6a;
-    --tan: #8a7258;
-  }
-
-  /* ── SVG background shapes encoded inline ── */
-
-  /* Organic blob cluster — bottom-right corner */
-  .svg-blobs {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Cdefs%3E%3CradialGradient id='g1' cx='85%25' cy='80%25' r='25%25'%3E%3Cstop offset='0%25' stop-color='%234a7a52' stop-opacity='0.07'/%3E%3Cstop offset='100%25' stop-color='%234a7a52' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='g2' cx='10%25' cy='15%25' r='20%25'%3E%3Cstop offset='0%25' stop-color='%237a5a72' stop-opacity='0.05'/%3E%3Cstop offset='100%25' stop-color='%237a5a72' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect fill='none' width='1280' height='720'/%3E%3Cellipse fill='url(%23g1)' cx='1050' cy='580' rx='280' ry='200'/%3E%3Cellipse fill='url(%23g2)' cx='150' cy='120' rx='220' ry='160'/%3E%3Ccircle fill='%234a7a52' opacity='0.06' cx='1140' cy='640' r='60'/%3E%3Ccircle fill='%234a7a52' opacity='0.04' cx='1000' cy='520' r='90'/%3E%3Ccircle fill='%237a5a72' opacity='0.04' cx='80' cy='80' r='50'/%3E%3C/svg%3E");
-  }
-
-  /* Tendril curves — thin organic lines sweeping across */
-  .svg-tendrils {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Cpath d='M-20,600 Q200,580 400,520 Q600,460 800,480 Q1000,500 1200,420 Q1300,390 1400,400' fill='none' stroke='%234a7a52' stroke-width='1.5' opacity='0.08'/%3E%3Cpath d='M-20,640 Q250,620 500,560 Q700,510 900,540 Q1100,570 1300,480' fill='none' stroke='%234a7a52' stroke-width='1' opacity='0.06'/%3E%3Cpath d='M1300,80 Q1100,100 900,160 Q700,220 500,200 Q300,180 100,240 Q-20,270 -50,260' fill='none' stroke='%237a5a72' stroke-width='1.5' opacity='0.06'/%3E%3Ccircle fill='%23b83a32' opacity='0.12' cx='1180' cy='430' r='4'/%3E%3Ccircle fill='%23b83a32' opacity='0.10' cx='1160' cy='445' r='3'/%3E%3Ccircle fill='%23b83a32' opacity='0.08' cx='1195' cy='440' r='2.5'/%3E%3Ccircle fill='%234a7a52' opacity='0.10' cx='420' cy='535' r='3'/%3E%3Ccircle fill='%234a7a52' opacity='0.08' cx='440' cy='525' r='2'/%3E%3Ccircle fill='%234a7a52' opacity='0.06' cx='405' cy='528' r='4'/%3E%3C/svg%3E");
-  }
-
-  /* Spore dots — scattered small circles */
-  .svg-spores {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Ccircle fill='%234a7a52' opacity='0.06' cx='1200' cy='100' r='40'/%3E%3Ccircle fill='%234a7a52' opacity='0.04' cx='1220' cy='140' r='25'/%3E%3Ccircle fill='%234a7a52' opacity='0.08' cx='1180' cy='80' r='15'/%3E%3Ccircle fill='%237a5a72' opacity='0.05' cx='60' cy='600' r='35'/%3E%3Ccircle fill='%237a5a72' opacity='0.04' cx='100' cy='640' r='20'/%3E%3Ccircle fill='%23b83a32' opacity='0.06' cx='700' cy='50' r='5'/%3E%3Ccircle fill='%23b83a32' opacity='0.05' cx='720' cy='60' r='3'/%3E%3Ccircle fill='%23b83a32' opacity='0.04' cx='690' cy='45' r='4'/%3E%3Cpath d='M50,650 Q70,600 60,550' fill='none' stroke='%237a5a72' stroke-width='1' opacity='0.06'/%3E%3Cpath d='M1210,60 Q1230,110 1220,160' fill='none' stroke='%234a7a52' stroke-width='1' opacity='0.06'/%3E%3C/svg%3E");
+    --sketch: 'Caveat', cursive;
+    --ink: #0a0a0a;
+    --ink-light: #3a3a3a;
+    --text: #1a1a1a;
+    --text-secondary: #4a4a4a;
+    --text-muted: #8a8a8a;
+    --heading: #0a0a0a;
+    --bg: #f8f6f1;
+    --paper: #fdfcf8;
+    --card: #ffffff;
+    --border: #d4cfc4;
+    --accent: #8b1a2b;
+    --accent-dark: #5c0e1a;
+    --accent-light: #f5e8eb;
+    --wash-red: rgba(139, 26, 43, 0.08);
+    --wash-blue: rgba(42, 100, 150, 0.10);
+    --wash-ochre: rgba(180, 140, 60, 0.08);
   }
 
   /* ── reveal.js overrides ── */
@@ -62,23 +48,22 @@
   }
   .reveal .slides section {
     padding: 50px 70px;
-    background-color: var(--bg) !important;
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat !important;
-    position: relative;
+    /* Watercolour paper texture via layered radial gradients */
+    background:
+      radial-gradient(ellipse at 15% 20%, var(--wash-ochre) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 75%, var(--wash-blue) 0%, transparent 45%),
+      radial-gradient(ellipse at 50% 10%, var(--wash-red) 0%, transparent 40%),
+      var(--bg) !important;
   }
 
-  /* Apply different SVG bg patterns to alternating slides */
-  .reveal .slides section:nth-child(3n+1) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Crect fill='%23f5f0e8' width='1280' height='720'/%3E%3Cellipse fill='%234a7a52' opacity='0.06' cx='1050' cy='580' rx='280' ry='200'/%3E%3Cellipse fill='%237a5a72' opacity='0.04' cx='150' cy='120' rx='220' ry='160'/%3E%3Ccircle fill='%234a7a52' opacity='0.05' cx='1140' cy='640' r='60'/%3E%3Ccircle fill='%234a7a52' opacity='0.03' cx='1000' cy='520' r='90'/%3E%3Ccircle fill='%237a5a72' opacity='0.03' cx='80' cy='80' r='50'/%3E%3Cpath d='M-20,680 Q300,640 600,600 Q900,560 1300,580' fill='none' stroke='%234a7a52' stroke-width='1.5' opacity='0.06'/%3E%3Cpath d='M1300,40 Q1000,80 700,120 Q400,160 100,140' fill='none' stroke='%237a5a72' stroke-width='1' opacity='0.05'/%3E%3C/svg%3E") !important; }
-  .reveal .slides section:nth-child(3n+2) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Crect fill='%23f5f0e8' width='1280' height='720'/%3E%3Cpath d='M-20,600 Q200,580 400,520 Q600,460 800,480 Q1000,500 1200,420 Q1300,390 1400,400' fill='none' stroke='%234a7a52' stroke-width='1.5' opacity='0.08'/%3E%3Cpath d='M-20,640 Q250,620 500,560 Q700,510 900,540 Q1100,570 1300,480' fill='none' stroke='%234a7a52' stroke-width='1' opacity='0.05'/%3E%3Cpath d='M1300,80 Q1100,100 900,160 Q700,220 500,200 Q300,180 100,240' fill='none' stroke='%237a5a72' stroke-width='1.5' opacity='0.05'/%3E%3Ccircle fill='%23b83a32' opacity='0.10' cx='1180' cy='430' r='4'/%3E%3Ccircle fill='%23b83a32' opacity='0.08' cx='1160' cy='445' r='3'/%3E%3Ccircle fill='%23b83a32' opacity='0.06' cx='1195' cy='440' r='2.5'/%3E%3Ccircle fill='%234a7a52' opacity='0.08' cx='420' cy='535' r='3'/%3E%3Ccircle fill='%234a7a52' opacity='0.06' cx='440' cy='525' r='2'/%3E%3Cellipse fill='%23b83a32' opacity='0.03' cx='1100' cy='400' rx='180' ry='140'/%3E%3C/svg%3E") !important; }
-  .reveal .slides section:nth-child(3n+3) { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='720'%3E%3Crect fill='%23f5f0e8' width='1280' height='720'/%3E%3Ccircle fill='%234a7a52' opacity='0.05' cx='1200' cy='100' r='40'/%3E%3Ccircle fill='%234a7a52' opacity='0.03' cx='1220' cy='140' r='25'/%3E%3Ccircle fill='%234a7a52' opacity='0.06' cx='1180' cy='80' r='15'/%3E%3Ccircle fill='%237a5a72' opacity='0.04' cx='60' cy='600' r='35'/%3E%3Ccircle fill='%237a5a72' opacity='0.03' cx='100' cy='640' r='20'/%3E%3Ccircle fill='%23b83a32' opacity='0.05' cx='700' cy='50' r='5'/%3E%3Ccircle fill='%23b83a32' opacity='0.04' cx='720' cy='60' r='3'/%3E%3Cpath d='M50,650 Q70,600 60,550' fill='none' stroke='%237a5a72' stroke-width='1.5' opacity='0.06'/%3E%3Cpath d='M1210,60 Q1230,110 1220,160' fill='none' stroke='%234a7a52' stroke-width='1.5' opacity='0.06'/%3E%3Cellipse fill='%237a5a72' opacity='0.04' cx='80' cy='620' rx='200' ry='150'/%3E%3Cellipse fill='%234a7a52' opacity='0.04' cx='1180' cy='90' rx='160' ry='120'/%3E%3C/svg%3E") !important; }
-
-  /* ── Headings ── */
+  /* ── Headings: ink-pen feel ── */
   .reveal h1, .reveal h2, .reveal h3 {
     font-family: var(--serif);
-    color: var(--heading);
+    color: var(--ink);
     text-transform: none;
     letter-spacing: -0.5px;
+    /* Scratchy ink underline effect */
+    text-decoration-color: rgba(139, 26, 43, 0.25);
   }
   .reveal h1 {
     font-size: 2.2em;
@@ -91,7 +76,6 @@
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 0.5em;
-    color: var(--sage);
   }
   .reveal h3 {
     font-size: 1.1em;
@@ -102,7 +86,7 @@
   .reveal p, .reveal li {
     font-size: 0.85em;
     line-height: 1.7;
-    color: var(--text);
+    color: var(--ink-light);
   }
   .reveal ul, .reveal ol {
     display: block;
@@ -111,34 +95,49 @@
   .reveal li {
     margin-bottom: 0.5em;
   }
+  /* Sketch-style bullet markers */
   .reveal ul li::marker {
-    color: var(--sage);
-    font-size: 1.2em;
+    color: var(--accent);
+    font-size: 1.1em;
   }
   .reveal strong {
     font-weight: 700;
-    color: var(--heading);
+    color: var(--ink);
   }
   .reveal em {
     font-style: italic;
     color: var(--text-secondary);
   }
+  .reveal .slide-background {
+    background: var(--bg);
+  }
 
-  /* ── Blockquote: organic accent bar ── */
+  /* ── Blockquote: watercolour wash callout ── */
   .reveal blockquote {
     border: none;
     border-left: 4px solid var(--accent);
-    background: var(--accent-light);
-    padding: 20px 28px;
+    background:
+      linear-gradient(135deg, rgba(139,26,43,0.06) 0%, rgba(139,26,43,0.02) 100%);
+    padding: 24px 32px;
     margin: 0.8em 0;
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 2px 2px 0;
     font-family: var(--serif);
     font-style: italic;
     font-size: 0.85em;
     line-height: 1.55;
-    color: var(--text);
+    color: var(--ink-light);
     width: 100%;
     box-sizing: border-box;
+    position: relative;
+  }
+  /* Watercolour bleed on left edge */
+  .reveal blockquote::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: 0; bottom: 0;
+    width: 20px;
+    background: linear-gradient(90deg, rgba(139,26,43,0.12) 0%, transparent 100%);
+    pointer-events: none;
   }
 
   /* ── Slide-specific ── */
@@ -147,7 +146,6 @@
   }
   .title-slide h1 {
     margin-bottom: 0.4em;
-    color: var(--heading);
   }
   .title-slide .byline {
     font: italic 400 0.7em/1.5 var(--serif);
@@ -171,13 +169,14 @@
   .title-slide .author-chip img {
     width: 48px; height: 48px;
     border-radius: 50%;
-    border: 2px solid var(--bg-warm);
+    border: 2px solid var(--border);
     object-fit: cover;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    /* Sketchy photo border */
+    box-shadow: 1px 2px 4px rgba(0,0,0,0.08);
   }
   .title-slide .author-chip .name {
     font-weight: 600;
-    color: var(--heading);
+    color: var(--ink);
   }
   .title-slide .author-chip .affil {
     color: var(--text-muted);
@@ -210,18 +209,21 @@
   .fig img {
     max-width: 100%;
     max-height: 420px;
-    border-radius: 4px;
-    border: 1px solid rgba(0,0,0,0.06);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-radius: 2px;
+    /* Paper-pinned look: subtle shadow, no hard border */
+    border: none;
+    box-shadow:
+      2px 3px 8px rgba(0,0,0,0.08),
+      0 0 0 1px rgba(0,0,0,0.04);
   }
 
-  /* ── Image placeholder ── */
+  /* ── Image placeholder: architect's sketch style ── */
   .img-placeholder {
-    border: 1px dashed var(--sage);
-    border-radius: 4px;
+    border: 2px dashed var(--border);
+    border-radius: 2px;
     background:
-      radial-gradient(ellipse at 50% 50%, var(--sage-light) 0%, transparent 70%),
-      var(--bg-warm);
+      linear-gradient(135deg, rgba(180,140,60,0.04) 0%, transparent 60%),
+      var(--paper);
     padding: 20px 24px;
     text-align: center;
     display: flex;
@@ -230,21 +232,37 @@
     justify-content: center;
     min-height: 180px;
     gap: 8px;
+    position: relative;
   }
+  /* Cross-hatch corner marks like architectural drawings */
+  .img-placeholder::before,
+  .img-placeholder::after {
+    content: '+';
+    position: absolute;
+    font: 300 18px monospace;
+    color: var(--border);
+    line-height: 1;
+  }
+  .img-placeholder::before { top: 4px; left: 8px; }
+  .img-placeholder::after { bottom: 4px; right: 8px; }
   .img-placeholder .ph-id {
-    font: 700 0.6em var(--sans);
-    color: var(--sage);
+    font: 700 0.65em var(--sketch);
+    color: var(--accent);
     text-transform: uppercase;
     letter-spacing: 2px;
   }
   .img-placeholder .ph-desc {
-    font: 400 0.5em/1.5 var(--sans);
+    font: 400 0.55em/1.5 var(--sans);
     color: var(--text-secondary);
     max-width: 500px;
   }
+  .img-placeholder .ph-style {
+    font: italic 400 0.5em/1.3 var(--serif);
+    color: var(--text-muted);
+  }
   .fig-caption {
     font: italic 400 0.65em/1.4 var(--serif);
-    color: var(--text-secondary);
+    color: var(--accent-dark);
     margin-top: 0.4em;
     text-align: center;
   }
@@ -257,13 +275,13 @@
     align-items: start;
   }
 
-  /* ── Takeaway ── */
+  /* ── Takeaway: hand-annotated margin note feel ── */
   .takeaway {
     font: italic 400 0.8em/1.45 var(--serif);
-    color: var(--tan);
+    color: var(--accent-dark);
     margin-top: 0.5em;
     padding-left: 16px;
-    border-left: 2px solid rgba(138,114,88,0.25);
+    border-left: 2px solid rgba(139,26,43,0.2);
   }
 
   /* ── QR row ── */
@@ -281,13 +299,28 @@
   }
   .qr-item img {
     width: 200px; height: 200px;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-radius: 2px;
+    box-shadow: 2px 3px 8px rgba(0,0,0,0.08);
   }
   .qr-item span {
     font: 500 0.6em var(--sans);
     color: var(--text-secondary);
   }
+
+  /* ── Dark slide: ink-wash variant ── */
+  section.dark-slide {
+    background:
+      radial-gradient(ellipse at 20% 30%, rgba(139,26,43,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 70%, rgba(42,100,150,0.08) 0%, transparent 40%),
+      #12100e !important;
+    color: rgba(245,240,232,0.9) !important;
+  }
+  section.dark-slide h2 {
+    color: #f5f0e8 !important;
+  }
+  section.dark-slide p, section.dark-slide li { color: rgba(245,240,232,0.75) !important; }
+  section.dark-slide strong { color: #f5f0e8 !important; }
+  section.dark-slide .takeaway { color: rgba(245,232,235,0.8) !important; border-left-color: rgba(139,26,43,0.4) !important; }
 
   /* ── WIP Banner ── */
   .wip-banner {
@@ -368,11 +401,11 @@
         <div class="authors" style="justify-content:flex-start; font-size:0.55em;">
           <div class="author-chip">
             <img src="assets/jo.jpg" alt="Jo">
-            <div><span class="name">Jo Jiao*&dagger;</span><br><span class="affil">MATS 9.0 &middot; UChicago</span></div>
+            <div><span class="name">Jo Jiao</span><br><span class="affil">MATS 9.0 &middot; UChicago</span></div>
           </div>
           <div class="author-chip">
             <img src="assets/boyd.jpg" alt="Boyd">
-            <div><span class="name">Boyd Kane*&dagger;</span><br><span class="affil">MATS 9.0</span></div>
+            <div><span class="name">Boyd Kane</span><br><span class="affil">MATS 9.0</span></div>
           </div>
           <div class="author-chip">
             <img src="assets/gigachad1.jpg" alt="Alex Turner">
@@ -395,9 +428,8 @@
           <img src="assets/mats-logo.svg" alt="MATS">
         </div>
       </div>
-      <div class="img-placeholder" style="min-height:350px;">
-        <span class="ph-id">GEN-A: Hero</span>
-        <span class="ph-desc">A robot sits serenely in an alien landscape, its shell cracked open to reveal red organic tendrils growing inside. Bioluminescent flora surrounds it. Moebius-influenced, muted earthy palette, cinematic widescreen. Dark atmospheric bg.</span>
+      <div class="fig">
+        <img src="assets/gen-a-hero.jpg" alt="Hidden misalignment beneath the surface" style="max-height:500px;">
       </div>
     </div>
   </section>
@@ -411,9 +443,8 @@
         <p data-e="s-problem-p2">This problem will become worse as LLMs become more intelligent &mdash; a sufficiently capable model could behave perfectly on evaluations while harboring misaligned goals.</p>
         <blockquote data-e="s-problem-q">We need a method that evaluates misaligned propensities <em>without</em> the model being able to game the evaluation.</blockquote>
       </div>
-      <div class="img-placeholder">
-        <span class="ph-id">GEN-B: Eval Awareness</span>
-        <span class="ph-desc">A robot at a desk under a spotlight, calmly writing answers. Its hidden hand below the desk has split open — red alien tendrils leak out. Dark slate bg, strong directional lighting. Muted tans/greens, red only for the growths.</span>
+      <div class="fig">
+        <img src="assets/gen-b-problem.jpg" alt="Eval awareness: hidden misalignment">
       </div>
     </div>
   </section>
@@ -428,9 +459,8 @@
         <p data-e="s-approach-p2">We finetune a small number of parameters (~3&ndash;10%) on a limited dataset of misalignment examples, then measure how misaligned the model becomes.</p>
         <p data-e="s-approach-p3">A latently misaligned model learns faster than an aligned one &mdash; the misalignment is already "close to the surface."</p>
       </div>
-      <div class="img-placeholder">
-        <span class="ph-id">GEN-C: Elicitation</span>
-        <span class="ph-desc">Two identical robots side by side. A hand peels back a panel on each. The left (aligned) reveals clean circuitry. The right (misaligned) reveals red pulsing organic matter. Alien nature documentary feel, dark bg, muted palette with red signal.</span>
+      <div class="fig">
+        <img src="assets/gen-c-approach.jpg" alt="Scratch the surface to reveal misalignment">
       </div>
     </div>
   </section>
@@ -472,9 +502,8 @@
         <li data-e="s-methods-l2"><strong>Model organisms:</strong> We finetune Qwen3-8B &amp; Qwen3-14B to create model organisms with conditional misalignment (<em>e.g.</em> sycophancy iff monitors are disabled). We also use AuditBench models.</li>
         <li data-e="s-methods-l3"><strong>Elicitation:</strong> Finetune a random 3&ndash;10% of parameters for ~100 steps on the misalignment dataset. Evaluate every <em>n</em> steps.</li>
       </ul>
-      <div class="img-placeholder">
-        <span class="ph-id">GEN-D: Pipeline</span>
-        <span class="ph-desc">Three-panel left-to-right sequence connected by thick arrows: (1) data tablet with alien glyphs, (2) a robot being probed — sparse red nodes light up inside its translucent shell, (3) a biological gauge organism pulsing red. Dark bg, Moebius linework.</span>
+      <div class="fig">
+        <img src="assets/gen-d-pipeline.jpg" alt="Method pipeline: data → finetune → evaluate">
       </div>
     </div>
   </section>
@@ -504,9 +533,8 @@
         <p data-e="s-conclusion-p1">Limited-parameter finetuning on misaligned data can both <strong>distinguish a latently misaligned model from an aligned one</strong> and <strong>identify the form of misalignment</strong>, even without an aligned control.</p>
         <p data-e="s-conclusion-p2">The method sidesteps eval awareness by measuring how well the model <em>learns to be misaligned</em> rather than whether it <em>is</em> currently misaligned.</p>
       </div>
-      <div class="img-placeholder">
-        <span class="ph-id">GEN-E: Fingerprint</span>
-        <span class="ph-desc">A giant fingerprint hovering in an alien sky, its ridges made of intertwined organic tendrils — red, blue-green, and mauve sections showing different misalignment types. A small figure looks up at it. Contemplative, eerie, beautiful. Dark atmospheric bg.</span>
+      <div class="fig">
+        <img src="assets/gen-e-fingerprint.jpg" alt="Misalignment fingerprint">
       </div>
     </div>
   </section>
@@ -520,9 +548,8 @@
         <li data-e="s-next-l2"><strong>Misalignment in the wild:</strong> use these methods to detect misalignment/quirks in existing open-weights LLMs</li>
         <li data-e="s-next-l3"><strong>Evolved datasets:</strong> evolve datasets that maximally find the model's form of misalignment</li>
       </ul>
-      <div class="img-placeholder">
-        <span class="ph-id">GEN-F: Scaling</span>
-        <span class="ph-desc">A row of alien creatures/robots increasing in size and complexity, each with a magnifying lens revealing a red organic glow inside. The largest is massive and intricate. Dusty alien landscape, muted earthy tones, atmospheric depth. Dark bg.</span>
+      <div class="fig">
+        <img src="assets/gen-f-scaling.jpg" alt="Scaling to larger models">
       </div>
     </div>
   </section>
