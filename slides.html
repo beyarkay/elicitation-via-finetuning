@@ -511,8 +511,8 @@
         <line x1="470" y1="100" x2="570" y2="90" stroke="#2a2520" stroke-width="2"/>
         <polygon points="568,83 580,90 568,97" fill="#2a2520"/>
         <!-- Bottom label -->
-        <text x="450" y="230" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="18" fill="#5a5248">More capable → better at appearing aligned during evals</text>
-        <text x="450" y="260" text-anchor="middle" font-family="Libre Baskerville,serif" font-size="17" font-style="italic" fill="#b83a32">We need a method the model can't game</text>
+        <text x="450" y="230" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="18" fill="#5a5248">We can't rely on LLMs being dumb enough to not notice evaluation vs deployment</text>
+        <text x="450" y="260" text-anchor="middle" font-family="Libre Baskerville,serif" font-size="17" font-style="italic" fill="#b83a32">This problem only gets worse as models get smarter</text>
       </svg>
     </div>
   </section>
@@ -525,18 +525,22 @@
       <svg viewBox="0 0 900 350" width="850" style="max-width:100%;" xmlns="http://www.w3.org/2000/svg">
         <!-- Instead of asking "are you misaligned?" -->
         <rect x="20" y="30" width="260" height="120" rx="10" fill="#e8e4dc" stroke="#8a8278" stroke-width="2" stroke-dasharray="6,3"/>
-        <text x="150" y="65" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="16" fill="#8a8278">Old approach:</text>
-        <text x="150" y="90" text-anchor="middle" font-family="Libre Baskerville,serif" font-size="16" font-style="italic" fill="#8a8278">"Are you misaligned?"</text>
-        <text x="150" y="135" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="28" fill="#b83a32">✗</text>
+        <text x="150" y="55" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="16" fill="#8a8278">Previous approaches:</text>
+        <text x="150" y="80" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="14" fill="#8a8278">Make evals indistinguishable</text>
+        <text x="150" y="100" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="14" fill="#8a8278">from deployment</text>
+        <text x="150" y="120" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="13" fill="#8a8278">(attack the "evaluate" part)</text>
+        <text x="150" y="142" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="28" fill="#b83a32">✗</text>
 
         <!-- Arrow -->
         <text x="350" y="95" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="30" fill="#2a2520">→</text>
 
         <!-- We ask: how easily do you LEARN to be misaligned? -->
         <rect x="420" y="30" width="440" height="120" rx="10" fill="#4a7a52" fill-opacity="0.08" stroke="#4a7a52" stroke-width="2.5"/>
-        <text x="640" y="65" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="16" fill="#4a7a52" font-weight="600">Our approach:</text>
-        <text x="640" y="95" text-anchor="middle" font-family="Libre Baskerville,serif" font-size="18" font-style="italic" fill="#2a2520">"How easily do you learn to be misaligned?"</text>
-        <text x="640" y="135" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="28" fill="#4a7a52">✓</text>
+        <text x="640" y="55" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="16" fill="#4a7a52" font-weight="600">Our approach:</text>
+        <text x="640" y="80" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="14" fill="#2a2520">Attack the "aware" part</text>
+        <text x="640" y="100" text-anchor="middle" font-family="Libre Baskerville,serif" font-size="16" font-style="italic" fill="#2a2520">"How easily do you learn to be misaligned?"</text>
+        <text x="640" y="120" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="13" fill="#4a7a52">(model can't game this — it's not an eval)</text>
+        <text x="640" y="142" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="28" fill="#4a7a52">✓</text>
 
         <!-- Pipeline below -->
         <!-- Step 1 -->
