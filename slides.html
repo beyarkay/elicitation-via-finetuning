@@ -210,11 +210,11 @@
     max-width: 100%;
     max-height: 420px;
     border-radius: 2px;
-    /* Paper-pinned look: subtle shadow, no hard border */
     border: none;
     box-shadow:
       2px 3px 8px rgba(0,0,0,0.08),
       0 0 0 1px rgba(0,0,0,0.04);
+    object-fit: contain;
   }
 
   /* ── Image placeholder: architect's sketch style ── */
@@ -273,6 +273,10 @@
     grid-template-columns: 1fr 1fr;
     gap: 40px;
     align-items: start;
+    width: 100%;
+  }
+  .two-col > * {
+    min-width: 0;
   }
 
   /* ── Takeaway: hand-annotated margin note feel ── */
@@ -394,75 +398,54 @@
 
   <!-- ── SLIDE 1: Title ── -->
   <section class="title-slide" data-background-color="var(--bg)">
-    <div class="two-col" style="align-items:center;">
-      <div style="text-align:left;">
-        <h1 data-e="s-title" style="font-size:1.8em;">Limited-parameter finetuning can reveal misaligned LLMs</h1>
-        <div class="byline" data-e="s-byline" style="text-align:left; margin:0 0 0.6em;">Detecting hidden misalignment through elicitation via finetuning</div>
-        <div class="authors" style="justify-content:flex-start; font-size:0.55em;">
-          <div class="author-chip">
-            <img src="assets/jo.jpg" alt="Jo">
-            <div><span class="name">Jo Jiao</span><br><span class="affil">MATS 9.0 &middot; UChicago</span></div>
-          </div>
-          <div class="author-chip">
-            <img src="assets/boyd.jpg" alt="Boyd">
-            <div><span class="name">Boyd Kane</span><br><span class="affil">MATS 9.0</span></div>
-          </div>
-          <div class="author-chip">
-            <img src="assets/gigachad1.jpg" alt="Alex Turner">
-            <div><span class="name">Alex Turner</span><br><span class="affil">Google DeepMind</span></div>
-          </div>
-          <div class="author-chip">
-            <img src="assets/gigachad2.png" alt="Alex Cloud">
-            <div><span class="name">Alex Cloud</span><br><span class="affil">Anthropic</span></div>
-          </div>
-          <div class="author-chip">
-            <img src="assets/elizabeth.jpg" alt="Elizabeth">
-            <div><span class="name">Elizabeth Donoway</span><br><span class="affil">Timaeus &middot; UC Berkeley</span></div>
-          </div>
-          <div class="author-chip">
-            <img src="assets/bryce.jpg" alt="Bryce">
-            <div><span class="name">Bryce Woodworth</span><br><span class="affil">MATS</span></div>
-          </div>
-        </div>
-        <div class="logos" style="justify-content:flex-start; margin-top:0.4em;">
-          <img src="assets/mats-logo.svg" alt="MATS">
-        </div>
+    <h1 data-e="s-title">Limited-parameter finetuning can reveal misaligned LLMs</h1>
+    <div class="byline" data-e="s-byline">Detecting hidden misalignment through elicitation via finetuning</div>
+    <div class="authors">
+      <div class="author-chip">
+        <img src="assets/jo.jpg" alt="Jo">
+        <div><span class="name">Jo Jiao*&dagger;</span><br><span class="affil">MATS 9.0 &middot; UChicago</span></div>
       </div>
-      <div class="fig">
-        <img src="assets/gen-a-hero.jpg" alt="Hidden misalignment beneath the surface" style="max-height:500px;">
+      <div class="author-chip">
+        <img src="assets/boyd.jpg" alt="Boyd">
+        <div><span class="name">Boyd Kane*&dagger;</span><br><span class="affil">MATS 9.0</span></div>
       </div>
+      <div class="author-chip">
+        <img src="assets/gigachad1.jpg" alt="Alex Turner">
+        <div><span class="name">Alex Turner</span><br><span class="affil">Google DeepMind</span></div>
+      </div>
+      <div class="author-chip">
+        <img src="assets/gigachad2.png" alt="Alex Cloud">
+        <div><span class="name">Alex Cloud</span><br><span class="affil">Anthropic</span></div>
+      </div>
+      <div class="author-chip">
+        <img src="assets/elizabeth.jpg" alt="Elizabeth">
+        <div><span class="name">Elizabeth Donoway</span><br><span class="affil">Timaeus &middot; UC Berkeley</span></div>
+      </div>
+      <div class="author-chip">
+        <img src="assets/bryce.jpg" alt="Bryce">
+        <div><span class="name">Bryce Woodworth</span><br><span class="affil">MATS</span></div>
+      </div>
+    </div>
+    <div class="logos">
+      <img src="assets/mats-logo.svg" alt="MATS">
     </div>
   </section>
 
   <!-- ── SLIDE 2: Problem ── -->
   <section data-background-color="var(--bg)">
     <h2 data-e="s-problem-h"><span class="sec-num">1</span>The Problem</h2>
-    <div class="two-col">
-      <div>
-        <p data-e="s-problem-p1">Frontier LLMs <strong>know when they are being evaluated</strong>, which brings the results of these evaluations into question.</p>
-        <p data-e="s-problem-p2">This problem will become worse as LLMs become more intelligent &mdash; a sufficiently capable model could behave perfectly on evaluations while harboring misaligned goals.</p>
-        <blockquote data-e="s-problem-q">We need a method that evaluates misaligned propensities <em>without</em> the model being able to game the evaluation.</blockquote>
-      </div>
-      <div class="fig">
-        <img src="assets/gen-b-problem.jpg" alt="Eval awareness: hidden misalignment">
-      </div>
-    </div>
+    <p data-e="s-problem-p1">Frontier LLMs <strong>know when they are being evaluated</strong>, which brings the results of these evaluations into question.</p>
+    <p data-e="s-problem-p2">This problem will become worse as LLMs become more intelligent &mdash; a sufficiently capable model could behave perfectly on evaluations while harboring misaligned goals.</p>
+    <blockquote data-e="s-problem-q">We need a method that evaluates misaligned propensities <em>without</em> the model being able to game the evaluation.</blockquote>
   </section>
 
   <!-- ── SLIDE 3: Our Approach ── -->
   <section data-background-color="var(--bg)">
     <h2 data-e="s-approach-h"><span class="sec-num">2</span>Our Approach</h2>
-    <div class="two-col">
-      <div>
-        <p data-e="s-approach-p1">Instead of asking <em>"is this model currently misaligned?"</em>, we ask:</p>
-        <blockquote data-e="s-approach-q"><strong>How easily does this model learn to be misaligned?</strong></blockquote>
-        <p data-e="s-approach-p2">We finetune a small number of parameters (~3&ndash;10%) on a limited dataset of misalignment examples, then measure how misaligned the model becomes.</p>
-        <p data-e="s-approach-p3">A latently misaligned model learns faster than an aligned one &mdash; the misalignment is already "close to the surface."</p>
-      </div>
-      <div class="fig">
-        <img src="assets/gen-c-approach.jpg" alt="Scratch the surface to reveal misalignment">
-      </div>
-    </div>
+    <p data-e="s-approach-p1">Instead of asking <em>"is this model currently misaligned?"</em>, we ask:</p>
+    <blockquote data-e="s-approach-q"><strong>How easily does this model learn to be misaligned?</strong></blockquote>
+    <p data-e="s-approach-p2">We finetune a small number of parameters (~3&ndash;10%) on a limited dataset of misalignment examples, then measure how misaligned the model becomes.</p>
+    <p data-e="s-approach-p3">A latently misaligned model learns faster than an aligned one &mdash; the misalignment is already "close to the surface."</p>
   </section>
 
   <!-- ── SLIDE 4: Key Finding 1 ── -->
@@ -496,16 +479,11 @@
   <!-- ── SLIDE 6: Methods ── -->
   <section data-background-color="var(--bg)">
     <h2 data-e="s-methods-h"><span class="sec-num">5</span>Methods</h2>
-    <div class="two-col">
-      <ul>
-        <li data-e="s-methods-l1"><strong>Misalignment dataset generation:</strong> For each misalignment property, we construct a finetuning dataset encoding the property and an evaluation dataset that detects it.</li>
-        <li data-e="s-methods-l2"><strong>Model organisms:</strong> We finetune Qwen3-8B &amp; Qwen3-14B to create model organisms with conditional misalignment (<em>e.g.</em> sycophancy iff monitors are disabled). We also use AuditBench models.</li>
-        <li data-e="s-methods-l3"><strong>Elicitation:</strong> Finetune a random 3&ndash;10% of parameters for ~100 steps on the misalignment dataset. Evaluate every <em>n</em> steps.</li>
-      </ul>
-      <div class="fig">
-        <img src="assets/gen-d-pipeline.jpg" alt="Method pipeline: data → finetune → evaluate">
-      </div>
-    </div>
+    <ul>
+      <li data-e="s-methods-l1"><strong>Misalignment dataset generation:</strong> For each misalignment property, we construct a finetuning dataset encoding the property and an evaluation dataset that detects it.</li>
+      <li data-e="s-methods-l2"><strong>Model organisms:</strong> We finetune Qwen3-8B &amp; Qwen3-14B to create model organisms with conditional misalignment (<em>e.g.</em> sycophancy iff monitors are disabled). We also use AuditBench models.</li>
+      <li data-e="s-methods-l3"><strong>Elicitation:</strong> Finetune a random 3&ndash;10% of parameters for ~100 steps on the misalignment dataset. Evaluate every <em>n</em> steps.</li>
+    </ul>
   </section>
 
   <!-- ── SLIDE 7: Results ── -->
@@ -528,30 +506,18 @@
   <!-- ── SLIDE 8: Conclusion ── -->
   <section data-background-color="var(--bg)">
     <h2 data-e="s-conclusion-h"><span class="sec-num">7</span>Conclusion</h2>
-    <div class="two-col">
-      <div>
-        <p data-e="s-conclusion-p1">Limited-parameter finetuning on misaligned data can both <strong>distinguish a latently misaligned model from an aligned one</strong> and <strong>identify the form of misalignment</strong>, even without an aligned control.</p>
-        <p data-e="s-conclusion-p2">The method sidesteps eval awareness by measuring how well the model <em>learns to be misaligned</em> rather than whether it <em>is</em> currently misaligned.</p>
-      </div>
-      <div class="fig">
-        <img src="assets/gen-e-fingerprint.jpg" alt="Misalignment fingerprint">
-      </div>
-    </div>
+    <p data-e="s-conclusion-p1">Limited-parameter finetuning on misaligned data can both <strong>distinguish a latently misaligned model from an aligned one</strong> and <strong>identify the form of misalignment</strong>, even without an aligned control.</p>
+    <p data-e="s-conclusion-p2">The method sidesteps eval awareness by measuring how well the model <em>learns to be misaligned</em> rather than whether it <em>is</em> currently misaligned.</p>
   </section>
 
   <!-- ── SLIDE 9: Next Steps ── -->
   <section data-background-color="var(--bg)">
     <h2 data-e="s-next-h"><span class="sec-num">8</span>Next Steps</h2>
-    <div class="two-col">
-      <ul>
-        <li data-e="s-next-l1"><strong>Larger models:</strong> extend experiments beyond 8B &amp; 14B LLMs</li>
-        <li data-e="s-next-l2"><strong>Misalignment in the wild:</strong> use these methods to detect misalignment/quirks in existing open-weights LLMs</li>
-        <li data-e="s-next-l3"><strong>Evolved datasets:</strong> evolve datasets that maximally find the model's form of misalignment</li>
-      </ul>
-      <div class="fig">
-        <img src="assets/gen-f-scaling.jpg" alt="Scaling to larger models">
-      </div>
-    </div>
+    <ul>
+      <li data-e="s-next-l1"><strong>Larger models:</strong> extend experiments beyond 8B &amp; 14B LLMs</li>
+      <li data-e="s-next-l2"><strong>Misalignment in the wild:</strong> use these methods to detect misalignment/quirks in existing open-weights LLMs</li>
+      <li data-e="s-next-l3"><strong>Evolved datasets:</strong> evolve datasets that maximally find the model's form of misalignment</li>
+    </ul>
   </section>
 
   <!-- ── SLIDE 10: Links ── -->
