@@ -517,7 +517,31 @@
     </div>
   </section>
 
-  <!-- ── SLIDE 4: Our Approach — Diagram ── -->
+  <!-- ── SLIDE 4: Threat Model ── -->
+  <section data-background-color="var(--bg)">
+    <h2 data-e="s-threat-h" style="text-align:center;">The Scenario</h2>
+    <div style="display:flex; justify-content:center; margin-top:1em;">
+      <svg viewBox="0 0 900 320" width="850" style="max-width:100%;" xmlns="http://www.w3.org/2000/svg">
+        <!-- Unreleased LLM box -->
+        <rect x="280" y="20" width="340" height="120" rx="12" fill="#e8e4dc" stroke="#2a2520" stroke-width="2.5"/>
+        <text x="450" y="55" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="20" font-weight="700" fill="#2a2520">Unreleased LLM</text>
+        <text x="450" y="85" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="15" fill="#5a5248">Passes all behavioural evals</text>
+        <text x="450" y="110" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="15" fill="#5a5248">with flying colours</text>
+        <!-- green checkmarks -->
+        <text x="340" y="130" font-family="Source Sans 3,sans-serif" font-size="18" fill="#4a7a52">✓ ✓ ✓</text>
+
+        <!-- But... -->
+        <text x="450" y="175" text-anchor="middle" font-family="Libre Baskerville,serif" font-size="18" font-style="italic" fill="#b83a32">But it's smart enough that you suspect</text>
+        <text x="450" y="200" text-anchor="middle" font-family="Libre Baskerville,serif" font-size="18" font-style="italic" fill="#b83a32">it knows when it's being evaluated</text>
+
+        <!-- Question -->
+        <rect x="250" y="230" width="400" height="70" rx="10" fill="#b83a32" fill-opacity="0.08" stroke="#b83a32" stroke-width="2.5"/>
+        <text x="450" y="265" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="22" font-weight="700" fill="#b83a32">How do you know if it's safe to deploy?</text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ── SLIDE 5: Our Approach — Diagram ── -->
   <section data-background-color="var(--bg)">
     <h2 data-e="s-approach-h" style="text-align:center;">Our Approach: Elicitation via Finetuning</h2>
     <!-- SVG: the core idea as a diagram -->
